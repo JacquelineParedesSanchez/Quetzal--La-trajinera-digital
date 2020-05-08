@@ -24,7 +24,7 @@ class Alimento(models.Model):
 
 class Categoria(models.Model):
 
-	nombre = model.CharField(max_length = 30)
+	nombre = models.CharField(max_length = 30)
 	lista_alimentos = models.ManyToManyField(Alimento, blank=True)
 
 	def __str__(self):
