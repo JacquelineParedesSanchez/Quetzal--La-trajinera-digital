@@ -8,8 +8,7 @@ from django.contrib.auth.forms import UserCreationForm
 # Create your views here.
 #class SignUpView(View):
 
-def registro(response):
-#    form = UserCreation()
-#    return render(response, "registro/registro.html", {"form":form})
+def login(request):
+    return render(request, "cliente/login.html")
 #    return render()
-    return HttpResponse("Prueba hecha")
+#    return HttpResponse("Prueba hecha")

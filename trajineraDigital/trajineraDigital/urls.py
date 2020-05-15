@@ -19,6 +19,6 @@ from apps.cliente import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('registro/', include('apps.cliente.urls'))
+    path('accounts/', include('apps.cliente.urls'))
 #    path('',include(PAGINA_PRINCIPAL, namespace="home")),  #pagina principal
 ]
