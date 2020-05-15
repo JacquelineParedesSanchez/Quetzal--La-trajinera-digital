@@ -2,8 +2,31 @@
   <head>
       <meta charset="utf-8">
       <title>Login</title>
+
+      <! –– Esto nos ayuda con el diseño del front-end. Para mas información, ir a getbootstrap.com ––>
+      <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous">
+      <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+      integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+      crossorigin="anonymous"></script>
+
+      {% load static %}
+      <link rel="stylesheet" href="{% static 'cliente/style.css' %}" type="text/css">
   </head>
   <body>
-    <h1>  ¡Bienvenido! Inicia sesión ahora mismo. </h1>
+    <div class="container">
+
+      <h1>  ¡Bienvenido! Inicia sesión ahora mismo. </h1>
+      Ahora pondremos un butón.
+      <button class="btm btn-success" type="button" name="button">Login</button>
+    </div>
+    <div class="jumbotron">
+      <h1>tratado</h1>
+    </div>
+
   </body>
 </html>
