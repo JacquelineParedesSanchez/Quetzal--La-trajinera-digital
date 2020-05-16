@@ -9,6 +9,8 @@ from django.contrib.auth.forms import UserCreationForm
 #class SignUpView(View):
 
 def login(request):
-    return render(request, "cliente/login.html")
-#    return render()
-#    return HttpResponse("Prueba hecha")
+    numbers = [1,2,3,4,5]
+    name= "Max Power"
+
+    args={'myname' : name, 'numbers': numbers}
+    return render(request, "cliente/home.html", args)
