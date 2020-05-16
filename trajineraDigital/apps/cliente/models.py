@@ -17,11 +17,12 @@ class UserCliente(models.Model):
 #		return f"Usuario({self.user.id} {self.user.first_name}
 #			{self.user.last_name} {self.user.email})"
 
+#	def __repr__(self):
+#		return self.__str__()
+
+
 def create_profile(sender,**kwargs):
 	if kwargs['created']:
 		client_profile=UserCliente.objects.create(user=kwargs['instance'])
 
 post_save.connect(create_profile, sender=User)
-
-#	def __repr__(self):
-#		return self.__str__()
