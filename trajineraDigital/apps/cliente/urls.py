@@ -17,4 +17,5 @@ from django.contrib.auth import views as v
 urlpatterns = [
     path('', views.login, name='login'),
     path('login/', v.LoginView.as_view(), {'template_name': 'login.html'}, name='login'),
+    path('registro/', views.registro, name='registro')
 ]

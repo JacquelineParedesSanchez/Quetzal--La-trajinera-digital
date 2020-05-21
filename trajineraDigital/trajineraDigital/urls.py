@@ -20,6 +20,6 @@ from trajineraDigital import views as vista
 urlpatterns = [
     path('', vista.login_redirect, name='login_redirect'),
     path('admin/', admin.site.urls),
-    path('home/', include('apps.cliente.urls'))
+    path('home/', include('apps.cliente.urls')),
 
 ]
