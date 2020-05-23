@@ -1,7 +1,8 @@
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponseRedirect
+from django.http import HttpResponse
 from django.contrib.auth import login, authenticate
-from django.contrib.auth.forms import UserCreationForm
+from apps.cliente.forms import SignUpForm
 
 #from users.
 
@@ -17,12 +18,14 @@ def login(request):
 
 def registro(request):
     if request.method =='POST':
-        form = UserCreationForm(request.POST)
+        form = SignUpForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('/home')
+            return HttpResponseRedirect('/home')
+        else:
+            print(form.errors)
     else:
-        form=UserCreationForm()
+        form=SignUpForm()
 
         args = {'form': form}
         return render(request, 'registration/register.html', args)
