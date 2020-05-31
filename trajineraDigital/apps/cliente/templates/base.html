@@ -18,14 +18,32 @@
   </head>
   <body>
 
-    <nav id="navbar-example2" class="navbar navbar-light bg-light">
-      <a class="navbar-brand" href="#">La Trajinera Digital</a>
-      <ul class="nav nav-pills">
-        <li class="nav-item">
-          <a class="nav-link" href="/home/registro">Registrarse</a>
-        </li>
-      </ul>
-    </nav>
+{% if user.is_authenticated%}
+<nav id="navbar-trajinera" class="navbar navbar-light bg-light">
+  <a class="navbar-brand" href="#">La Trajinera Dijital</a>
+  <ul class="nav nav-pills">
+    <li class="nav-item">
+      <a class="nav-link" href="/home/menu">Ver menú</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/home/carrito">Ver carrito</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/home/login">Salir</a>
+    </li>
+  </ul>
+</nav>
+{% else %}
+<nav id="navbar-trajinera" class="navbar navbar-light bg-light">
+  <a class="navbar-brand" href="#">La Trajinera Dijital</a>
+  <ul class="nav nav-pills">
+      <li class="nav-item">
+        <a class="nav-link" href="/home/registro">Registrarse</a>
+      </li>
+    </ul>
+  </nav>
+{%endif%}
+
     {% block body %}
         <h1>base</h1>
     {% endblock %}
