@@ -31,15 +31,15 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'apps.menu',
+    'apps.cliente',
+    'trajineraDigital',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'apps.menu',
-    'apps.cliente',
-    'trajineraDigital',
 ]
 
 MIDDLEWARE = [
@@ -50,6 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'trajineraDigital.middleware.LoginRequiredMiddleware',
 ]
 
 ROOT_URLCONF = 'trajineraDigital.urls'
@@ -132,3 +133,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 LOGIN_REDIRECT_URL= '/home/'
+
+LOGIN_URL = '/home/login/'
+
+LOGIN_EXEMPT_URLS = {
+    'home/registro/'
+}
