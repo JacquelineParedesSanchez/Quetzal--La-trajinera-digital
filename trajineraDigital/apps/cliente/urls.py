@@ -14,9 +14,11 @@ from django.urls import path, include
 from . import views
 from django.contrib.auth import views as v
 
+app_name="cliente"
 urlpatterns = [
     path('', views.login, name='login'),
     path('login/', v.LoginView.as_view(), {'template_name': 'login.html'}, name='login'),
+    path('logout/', v.LogoutView.as_view(),name = 'logged_out'),
     path('registro/', views.registro, name='registro'),
     path('principal/', views.principal, name='principal'),
     path('menu/', views.menu, name='menu'),

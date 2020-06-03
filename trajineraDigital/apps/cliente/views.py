@@ -30,17 +30,17 @@ def registro(request):
         args = {'form': form}
         return render(request, 'registration/register.html', args)
 
-@login_required
+
 def principal(request):
     args = {'user':request.user}
     return render(request, 'cliente/principal.html', args)
 
-@login_required
+
 def menu(request):
     args = {'user':request.user}
     return render(request, 'cliente/menu.html', args)
 
-@login_required
+
 def carrito(request):
     args = {'user':request.user}
     return render(request, 'cliente/carrito.html', args)
