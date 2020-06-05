@@ -5,10 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
-#from users.
-
-# Create your views here.
-#class SignUpView(View):
+from apps.cliente.forms import SignUpForm, RegistroClienteForm
 
 def login(request):
     numbers = [1,2,3,4,5]
@@ -20,14 +17,30 @@ def login(request):
 
 def registro(request):
     if request.method =='POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('/home')
-    else:
-        form=UserCreationForm()
+        form = SignUpForm(request.POST)
+        cliente_form = RegistroClienteForm(request.POST)
+        #form = UserCreationForm(request.POST)
+        if form.is_valid() and cliente_form.is_valid():
+            usuario = form.save()
+            cliente = cliente_form.save(commit=False)
+            cliente.user = usuario
 
-        args = {'form': form}
+            cliente.save()
+
+            return redirect('/home')
+        else:
+            return render(
+                request, 
+                'registration/register.html', 
+                {'form' : form, 'cliente_form' : cliente_form}
+            )
+
+    else:
+        form = SignUpForm()
+        cliente_form = RegistroClienteForm()
+        #form=UserCreationForm()
+
+        args = {'form': form, 'cliente_form' : cliente_form}
         return render(request, 'registration/register.html', args)
 
 
