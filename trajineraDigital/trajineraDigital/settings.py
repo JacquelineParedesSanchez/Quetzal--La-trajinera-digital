@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'apps.menu',
     'apps.cliente',
     'apps.usuarios',
+    'apps.carrito',
     'trajineraDigital',
     'django.contrib.admin',
     'django.contrib.auth',

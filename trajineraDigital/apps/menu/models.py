@@ -4,14 +4,14 @@ from apps.cliente.models import UserCliente
 
 # Create your models here.
 class Estado(models.Model):
-	
+
 	nombre = models.CharField(max_length=15)
-	
+
 	def __str__(self):
 		return '{}'.format(self.nombre)
 
 class Categoria(models.Model):
-	
+
 	nombre = models.CharField(max_length = 30)
 
 	def __str__(self):
@@ -20,11 +20,11 @@ class Categoria(models.Model):
 class Alimento(models.Model):
 
 	nombre = models.CharField(max_length=30)
-	precio = models.IntegerField()
+	precio = models.DecimalField(max_digits=100, decimal_places=2, default= 0.00)
 	descripcion = models.TextField()
 	categoria = models.ForeignKey(Categoria, null=True, blank=True, on_delete=models.CASCADE)
 	foto = models.ImageField(upload_to='media/alimentos/images/')
-	
+
 	def __str__(self):
 		return '{}'.format(self.nombre)
 
