@@ -1,0 +1,59 @@
+{% extends 'admin/alimento/alimento.html' %} 
+
+{% block content %} 
+
+<div class="cont-top">
+	
+	<div class="row">
+		
+		<div class="col-12 col-md-4">
+			<ul class="list-group">
+				<li class="list-group-item"><a href="{% url 'menu_alimentos' %}">Ver Alimentos</a></li>
+				<li class="list-group-item"><a href="{% url 'crear_alimento' %}">Agregar Alimentos</a></li>
+				<li class="list-group-item active"><a href="{% url 'menu_editar_alimentos' %}">Editar Alimentos</a></li>
+				<li class="list-group-item"><a href="{% url 'menu_eliminar_alimentos' %}">Eliminar Alimentos</a></li>
+				<li class="list-group-item"><a href="{% url 'index_menu' %}">Administrar</a></li>
+			</ul>
+		</div>
+
+		<div class="col-12 col-md-8">
+
+			<div id="Alimentos"> 
+
+				<h2>Alimentos</h2>
+				
+				<div class="arrowsAlimentos">
+				</div>
+
+				<div class="sliderAlimentos"> 
+
+					{% if  object_list %} 
+					{% for Alimento in object_list  %}
+					<div class="bkgndAlimento">
+
+						<div class="card" style="width: 12rem;">
+							<img class="card-img-top" src="{{ Alimento.foto.url }}" alt="Card IMG">
+							<h3>{{ Alimento.nombre }}</h3>
+							<div class="body-card">
+								<p class="card-text">{{ Alimento.descripcion  }}</p>
+							</div>
+							<h5>${{ Alimento.precio }}</h5>
+							<a href="{% url 'editar_alimento' Alimento.id %}" class="btn btn-info">Editar Alimento</a>
+						</div>
+
+					</div>
+					{% endfor %}
+
+					{% else %}
+					<h1>No hay registro de Alimentos</h1>
+					{% endif %}
+
+				</div>
+
+			</div>
+			
+		</div>
+
+	</div>
+</div>
+{% endblock %}  

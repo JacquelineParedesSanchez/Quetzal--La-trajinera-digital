@@ -5,7 +5,7 @@ from django.db.models.signals import post_save
 
 from django.dispatch import receiver
 
-from apps.menu.models import Orden
+#from apps.menu.models import Orden
 # Create your models here.
 class UserCliente(models.Model):
 

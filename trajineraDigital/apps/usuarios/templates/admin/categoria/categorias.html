@@ -1,0 +1,55 @@
+{% extends 'admin/index_admin.html' %} 
+
+
+{% block title %} Categorias {% endblock %}
+
+{% block content %} 
+
+<div class="cont-top">
+	
+	<div class="row">
+		
+		<div class="col-12 col-md-4">
+			<ul class="list-group">
+				<li class="list-group-item active"><a href="{% url 'listado_categorias' %}">Ver Categorias</a></li>
+				<li class="list-group-item"><a href="{% url 'crear_categoria' %}">Agregar Categorias</a></li>
+				<li class="list-group-item"><a href="{% url 'listado_editar_categorias' %}">Editar Categorias</a></li>
+				<li class="list-group-item"><a href="{% url 'listado_eliminar_categorias' %}">Eliminar Categorias</a></li>
+				<li class="list-group-item"><a href="{% url 'index_menu' %}">Administrar</a></li>
+			</ul>
+		</div>
+
+		<div class="col-12 col-md-8">
+
+			<table class="table table-bordered">
+
+				<thead>
+					<tr>
+						<td>#</td>
+						<td>Categoria</td>
+						<td>Acciones</td>
+					</tr>
+				</thead>
+
+				<tbody>
+					{% if  object_list %}<!--mascotas-->
+					{% for Categoria in object_list  %}<!--mascotas-->
+					<tr>
+						<td>{{ Categoria.id }}</td>
+						<td>{{ Categoria.nombre }}</td>
+						<td><a  class="btn btn-primary" href="{% url 'categoria_alimentos' Categoria.nombre %}">Ver Alimentos</a></td>
+					</tr>
+					{% endfor %}
+
+					{% else %}
+					<h1>No hay registro de Categorias</h1>
+					{% endif %}
+				</tbody>
+
+			</table>
+
+		</div>
+
+	</div>
+</div>
+{% endblock %} 

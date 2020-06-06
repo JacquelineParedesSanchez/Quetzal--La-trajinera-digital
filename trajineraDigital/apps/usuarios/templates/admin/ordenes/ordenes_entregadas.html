@@ -1,0 +1,62 @@
+{% extends 'admin/alimento/alimento.html' %} 
+
+{% block title %} Ordenes {% endblock %}
+
+{% block content %} 
+
+<div class="cont-top">
+	
+	<div class="row">
+		
+		<div class="col-12 col-md-4">
+			<ul class="list-group">
+				<li class="list-group-item active"><a href="{% url 'ordenes_entregadas' %}">Ver Ordenes Entregadas</a></li>
+				<li class="list-group-item"><a href="{% url 'ordenes_pendientes' %}">Ver Ordenes Pendientes</a></li>
+				<li class="list-group-item"><a href="{% url 'index_menu' %}">Administrar</a></li>
+			</ul>
+		</div>
+
+		<div class="col-12 col-md-8">
+
+			<h2>Ordenes</h2>
+
+			<table class="table table-bordered">
+
+				<thead>
+					<tr>
+						<td>Orden</td>
+						<td>Fecha</td>
+						<td>Cliente</td>
+						<td>Repartidor</td>
+						<td>Acciones</td>
+					</tr>
+				</thead>
+
+				<tbody>
+					{% if  object_list %}
+					{% for Orden in object_list  %}
+					{% if Orden.estado_orden.id == 6 %}
+					<tr>
+						<td>{{ Orden.id }}</td>
+						<td>{{ Orden.fecha_orden }}</td>
+						<td>{{ Orden.cliente_orden }}</td>
+						<td>{{ Orden.repartidor_orden }}</td>
+						<td><a  class="btn btn-primary" href="{% url 'orden_alimentos' Orden.id %}">Alimentos</a></td>
+					</tr>
+					{% endif %}
+					{% endfor %}
+
+					{% else %}
+					<h1>No hay Ordenes entregadas aun</h1>
+					{% endif %}
+				</tbody>
+
+			</table>
+
+		</div>
+
+	</div>
+
+</div>
+</div>
+{% endblock %} 

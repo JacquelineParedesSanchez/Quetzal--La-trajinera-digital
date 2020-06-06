@@ -1,0 +1,104 @@
+{% extends 'admin/index_admin.html' %} 
+{% load static %}
+
+{% block title %} Alimentos {% endblock %}
+
+{% block content %} 
+
+<div class="cont-top">
+	
+	<div class="row">
+		
+		<div class="col-12 col-md-4">
+			<ul class="list-group">
+				<li class="list-group-item active"><a href="{% url 'menu_alimentos' %}">Ver Alimentos</a></li>
+				<li class="list-group-item"><a href="{% url 'crear_alimento' %}">Agregar Alimentos</a></li>
+				<li class="list-group-item"><a href="{% url 'menu_editar_alimentos' %}">Editar Alimentos</a></li>
+				<li class="list-group-item"><a href="{% url 'menu_eliminar_alimentos' %}">Eliminar Alimentos</a></li>
+				<li class="list-group-item"><a href="{% url 'index_menu' %}">Administrar</a></li>
+			</ul>
+		</div>
+
+		<div class="col-12 col-md-8">
+
+			<div id="Alimentos"> 
+
+				<h2>Alimentos</h2>
+				
+				<div class="arrowsAlimentos">
+				</div>
+
+				<div class="sliderAlimentos"> 
+
+					{% if  object_list %} 
+					{% for Alimento in object_list  %}
+					<div class="bkgndAlimento">
+
+						<div class="card" style="width: 12rem;">
+							<img class="card-img-top" src="{{ Alimento.foto.url }}" alt="Card IMG">
+							<h3>{{ Alimento.nombre }}</h3>
+							<div class="body-card">
+								<p class="card-text">{{ Alimento.descripcion  }}</p>
+							</div>
+							<h5>${{ Alimento.precio }}</h5>
+							<h5>{{ Alimento.categoria }}</h5>
+						</div>
+
+					</div>
+					{% endfor %}
+
+					{% else %}
+					<h1>No hay registro de Alimentos</h1>
+					{% endif %}
+
+				</div>
+
+			</div>
+			
+		</div>
+
+	</div>
+</div>
+{% endblock %} 
+
+{% block extra_js %} 
+<script type="text/javascript">
+	$(document).ready(function(){
+		
+		$('.sliderAlimentos').slick({
+			dots: false,
+			infinite: true,
+			speed: 300,
+			arrows: true,
+			slidesToShow: 3,
+			slidesToScroll: 1,
+			autoplay: true,
+			autoplaySpeed: 3000,
+			appendArrows: $(".arrowsAlimentos"),
+			prevArrow: "<img class='prev' src='{% static 'image/arrow.png' %}'>",
+			nextArrow: "<img class='next' src='{% static 'image/arrow.png' %}'>",
+			responsive:[
+			{
+				breakpoint: 630,
+				settings: {
+					slidesToShow: 2,
+					slidesToScroll: 1,
+					infinite: true,
+					dots: false
+				}
+			},{
+				breakpoint: 400,
+				settings: {
+					slidesToShow: 1,
+					slidesToScroll: 1,
+					infinite: true,
+					dots: false
+				}
+			}
+			]
+		});
+
+	});
+</script>
+{% endblock %} 
+

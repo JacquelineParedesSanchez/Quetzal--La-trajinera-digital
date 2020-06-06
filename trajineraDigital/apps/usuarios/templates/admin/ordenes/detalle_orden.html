@@ -1,0 +1,14 @@
+{% extends 'admin/index_admin.html' %}
+
+{% block title %} Detalle Orden {% endblock %}
+
+{% block content %} 
+
+<ul class="list-group">
+	{% for Alimento in orden %}
+  <li class="list-group-item">{{ Alimento.nombre }}</li>
+	{% endfor %}
+</ul>
+
+
+{% endblock %} 
