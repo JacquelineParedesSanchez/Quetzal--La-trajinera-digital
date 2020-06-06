@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'apps.menu',
     'apps.cliente',
+    'apps.usuarios',
     'trajineraDigital',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -139,3 +140,12 @@ LOGIN_URL = '/home/login/'
 LOGIN_EXEMPT_URLS = {
     'home/registro/'
 }
+
+#DataFlair
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER =  os.environ.get('USER_EMAIL')
+EMAIL_HOST_PASSWORD = os.environ.get('USER_PASSWORD')
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+EMAIL_PORT = 587

@@ -1,0 +1,109 @@
+h4 {
+	color:blue; 
+} 
+
+.cont-top{
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+
+#footer_trajinera {
+	margin-top: 210px;
+		/*height:323px;*/
+	width:100%;
+	background-color: black;
+	font-size: 15pt;
+	color:white;
+}
+
+
+#Alimentos {
+	width: 100%;
+	height: 272px;
+	position: relative;
+	padding: 20px 50px 0;
+	margin-bottom: 20px;
+	margin-top: 35px;
+}
+
+
+#Alimentos .arrowsAlimentos{
+	position: absolute;
+	width: 100%;
+	bottom: 45px;
+	left: 0px;
+}
+
+#Alimentos .arrowsAlimentos .next{
+	float: right;
+	height: 70px;
+	padding-right: 15px;
+}
+
+#Alimentos .arrowsAlimentos .prev{
+	-ms-transform: rotate(180deg); /* IE 9 */
+	-webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+	transform: rotate(180deg);
+	height: 70px;
+	padding-right: 15px;
+}
+
+#Alimentos .sliderAlimentos{
+	width: 100%;
+	margin-top: 10px;
+}
+
+#Alimentos .bkgndAlimento{
+	height: 100px;
+	background-size: cover;
+	margin: 0 10px;
+	display: table;
+}
+
+#Alimentos .bkgndAlimento div{
+	color: red;
+	font-weight: bold;
+	font-size: 20px;
+	text-align: center;
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.bkgndAlimento img{
+	width: 150px;
+	height: 150px;
+} 
+
+
+
+.body-card{
+	height: 150px;
+	overflow:hidden;
+}
+
+.body-card p{
+	display: -webkit-box;
+	-webkit-line-clamp: 5;
+	-webkit-box-orient: vertical;
+}
+
+.active a {
+	color: white;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,111 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang=es>
+<head>
+	<meta charset="utf-8">
+	
+	<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+	<script src="{% static 'js/popper.js' %}"></script>
+	<script src="{% static 'js/bootstrap.min.js' %}"></script> 
+	<script src="{% static 'js/slick.min.js' %}"></script> 
+	<script src="{% static 'js/script.js' %}"></script> 
+	<link rel="stylesheet"  type="text/css" href="{% static 'estilo/style.css' %}">
+	<link rel="stylesheet"  type="text/css" href="{% static 'estilo/bootstrap.min.css' %}">
+	<link rel="stylesheet"  type="text/css" href="{% static 'estilo/slick.css' %}">
+	<title>{% block title %} {% endblock %}</title>
+</head>
+<body> 
+	
+	{% block navbar %} <h4>Este es el navbar</h4> {% endblock %}
+
+	{% block content %} <h4> Este es el contenido del archivo base</h4> {% endblock %} 
+	
+	{% block footer %} 
+	<!-- Footer -->
+	<footer id="footer_trajinera" class="page-footer font-small pt-4 bg-success">
+
+		<!-- Footer Links -->
+		<div class="container-fluid text-center text-md-left">
+
+			<!-- Grid row -->
+			<div class="row">
+
+				<!-- Grid column -->
+				<div class="col-md-6 mt-md-0 mt-3">
+
+					<!-- Content -->
+					<h5 class="text-uppercase">La Trajinera Digital</h5>
+					<p>Este es un producto desarrollado por: Quetzal</p>
+
+				</div>
+				<!-- Grid column -->
+
+				<hr class="clearfix w-100 d-md-none pb-3">
+
+				<!-- Grid column -->
+				<div class="col-md-3 mb-md-0 mb-3">
+
+					<!-- Links -->
+					<h5>Ingenieria de Software 2020-2</h5>
+
+					<ul class="list-unstyled">
+						<li>
+							<a href="#!">Link 1</a>
+						</li>
+						<li>
+							<a href="#!">Link 2</a>
+						</li>
+						<li>
+							<a href="#!">Link 3</a>
+						</li>
+						<li>
+							<a href="#!">Link 4</a>
+						</li>
+					</ul>
+
+				</div>
+				<!-- Grid column -->
+
+				<!-- Grid column -->
+				<div class="col-md-3 mb-md-0 mb-3">
+
+					<!-- Links -->
+					<h5>Colaboradores</h5>
+
+					<ul class="list-unstyled">
+						<li>
+							<a href="#!">Fernando</a>
+						</li>
+						<li>
+							<a href="#!">Jaqueline</a>
+						</li>
+						<li>
+							<a href="#!">Victor</a>
+						</li>
+						<li>
+							<a href="#!">Miguel</a>
+						</li>
+					</ul>
+
+				</div>
+				<!-- Grid column -->
+
+			</div>
+			<!-- Grid row -->
+
+		</div>
+		<!-- Footer Links -->
+
+		<!-- Copyright -->
+		<div class="footer-copyright text-center py-3">Contacto al desarollador:
+			<a href="mailto:damf@ciencias.unam.mx">damf@ciencias.unam.mx</a>
+		</div>
+		<!-- Copyright -->
+
+	</footer>
+	<!-- Footer -->
+	{% endblock %} 
+
+{% block extra_js %} {% endblock %}
+</body>
+</html>

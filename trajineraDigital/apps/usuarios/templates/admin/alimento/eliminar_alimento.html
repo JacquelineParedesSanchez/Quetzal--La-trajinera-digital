@@ -1,0 +1,12 @@
+{% extends 'admin/index_admin.html' %} 
+
+{% block title %} Eliminar Alimento {% endblock %}
+
+{% block content %} 
+<form method= 'post'>
+	{% csrf_token  %}
+	<h3>¿Desea Eliminar el Registro de {{ object.nombre }} ?</h3>
+	<button class="btn btn-danger" type="submit">Si, eliminar</button>
+	<a class="btn btn-primary" href="{% url 'menu_eliminar_alimentos' %}">Cancelar</a>
+</form>
+{% endblock %} 
