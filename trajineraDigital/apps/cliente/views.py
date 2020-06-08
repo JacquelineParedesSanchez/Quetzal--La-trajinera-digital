@@ -8,8 +8,7 @@ from django.contrib.auth.decorators import login_required
 from apps.menu.models import Alimento
 from apps.carrito.models import Carrito, Ordenar
 from apps.cliente.forms import SignUpForm, RegistroClienteForm
-from django.views.generic import DetailView
-
+from django.contrib.auth.decorators import login_required
 
 def login(request):
     numbers = [1,2,3,4,5]
@@ -52,16 +51,15 @@ def principal(request):
     args = {'user':request.user}
     return render(request, 'cliente/principal.html', args)
 
-
 def menu(request):
     args={'alimentos': Alimento.objects.all()}
     return render(request, "cliente/menu.html", args)
 
-
+@login_required
 def carrito(request):
     args={'alimentos': Alimento.objects.all()}
     return render(request, "cliente/carrito.html", args)
-
+@login_required
 def agregar_carrito(request, nombre):
     alimento = get_object_or_404(Alimento, nombre=nombre)
     ordenar, created = Ordenar.objects.get_or_create(alimento=alimento, user=request.user, ordenado=False)
@@ -79,7 +77,7 @@ def agregar_carrito(request, nombre):
         carrito.alimentos.add(ordenar)
         messages.info(request,"Se ha añadido este objeto al carrito")
     return redirect("menu",nombre= nombre)
-
+@login_required
 def quitar_carrito(request, nombre):
     alimento = get_object_or_404(Alimento, nombre=nombre)
     carrito_qs = Carrito.objects.filter(user=request.user, ordenado=False)

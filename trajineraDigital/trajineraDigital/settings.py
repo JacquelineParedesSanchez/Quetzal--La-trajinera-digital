@@ -52,7 +52,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'trajineraDigital.middleware.LoginRequiredMiddleware',
 ]
 
 ROOT_URLCONF = 'trajineraDigital.urls'
@@ -138,9 +137,6 @@ LOGIN_REDIRECT_URL= '/home/'
 
 LOGIN_URL = '/home/login/'
 
-LOGIN_EXEMPT_URLS = {
-    'home/registro/'
-}
 
 #DataFlair
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
