@@ -1,0 +1,24 @@
+{% extends 'base/base.html' %} 
+
+{% block navbar %} 
+
+<nav class="navbar navbar-light bg-success">
+  <span class="navbar-brand mb-0 h1">La Trajinera Digital</span>
+  <span class="navbar-brand mb-0 h1">Administración</span>
+</nav>
+
+{% endblock %}
+
+{% block content %}
+<div class="container">
+<h2>Login</h2>
+
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" name="button">Entrar</button>
+
+</form>
+</div>
+
+{% endblock %}

@@ -1,131 +1,256 @@
 from django.shortcuts import render, redirect
+from django import forms
 from django.http import HttpResponse 
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, TemplateView
 from django.urls import reverse_lazy
-from apps.menu.models import Alimento, Categoria, Orden
-from apps.usuarios.forms import AlimentoForm, CategoriaForm, RepartidorForm, OrdenesForm
-from trajineraDigital.settings import EMAIL_HOST_USER
-from django.core.mail import send_mail 
+from django.core.mail import send_mail
+from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.decorators import login_required, permission_required
 
+from apps.menu.models import Alimento, Categoria, Orden
+from apps.usuarios.models import Administrador
+from apps.usuarios.forms import AlimentoForm, CategoriaForm, RepartidorForm, OrdenesForm, IngresoForm, TelefonoForm
+from trajineraDigital.settings import EMAIL_HOST_USER
 
 # Create your views here.
-
+@login_required(login_url='/administrador/ingreso/')
+@permission_required('usuarios.es_administrador', raise_exception=True)
 def indexAdministrador(request):
-	return render(request,'admin/index_admin.html')
+    return render(request,'admin/index_admin.html')
+
+#@permission_required('usuarios.es_administrador', raise_exception=True)
+def ingreso(request):
+    if request.user.is_authenticated:
+        return redirect('/administrador/index_administrador')
+
+    if request.method == 'POST':
+        form = IngresoForm(request.POST)
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        
+        if user:
+            login(request, user)
+
+            return redirect('/administrador/index_administrador/')
+        else:
+
+            return render(
+                request,
+                'autenticacion/login.html',
+                {'form' : form}
+            )
+    else:
+        form = IngresoForm()
+        args = {'form' : form}
+
+        return render(request, "autenticacion/login.html", args)  
+
+@login_required(login_url='/administrador/ingreso/')
+@permission_required('usuarios.es_administrador', raise_exception=True)
+def salir(request):
+    logout(request)
+
+    return redirect('/administrador/ingreso/')   
+
+
+class menu_Alimentos_Administrador(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    login_url='/administrador/ingreso/'
+    redirect_field_name = 'redirect_to'
+    permission_required = 'usuarios.es_administrador'
+
+    model = Alimento
+    template_name = 'admin/alimento/alimento.html'
+
+class menu_Alimentos_Editar(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    login_url='/administrador/ingreso/'
+    redirect_field_name = 'redirect_to'
+    permission_required = 'usuarios.es_administrador'
+
+    model = Alimento
+    template_name = 'admin/alimento/menu_editar_alimento.html'
+
+class menu_Alimentos_Eliminar(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    login_url='/administrador/ingreso/'
+    redirect_field_name = 'redirect_to'
+    permission_required = 'usuarios.es_administrador'
+
+    model = Alimento
+    template_name = 'admin/alimento/menu_eliminar_alimento.html'
+
+
+class Crear_Alimento(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    login_url='/administrador/ingreso/'
+    redirect_field_name = 'redirect_to'
+    permission_required = 'usuarios.es_administrador'
+
+    model = Alimento
+    form_class = AlimentoForm
+    template_name = 'admin/alimento/crear_alimento.html'
+    success_url = reverse_lazy('menu_alimentos')
+
+class Editar_Alimento(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    login_url='/administrador/ingreso/'
+    redirect_field_name = 'redirect_to'
+    permission_required = 'usuarios.es_administrador'
+
+    model = Alimento
+    form_class = AlimentoForm
+    template_name = 'admin/alimento/editar_alimento.html'
+    success_url = reverse_lazy('menu_alimentos')
+
+class Eliminar_Alimento(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+    login_url='/administrador/ingreso/'
+    redirect_field_name = 'redirect_to'
+    permission_required = 'usuarios.es_administrador'
+
+    model = Alimento
+    form_class = AlimentoForm
+    template_name = 'admin/alimento/eliminar_alimento.html'
+    success_url = reverse_lazy('menu_alimentos')
 
 
 
-class menu_Alimentos_Administrador(ListView):
-	model = Alimento
-	template_name = 'admin/alimento/alimento.html'
 
-class menu_Alimentos_Editar(ListView):
-	model = Alimento
-	template_name = 'admin/alimento/menu_editar_alimento.html'
+class menu_Categoria(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    login_url='/administrador/ingreso/'
+    redirect_field_name = 'redirect_to'
+    permission_required = 'usuarios.es_administrador'
 
-class menu_Alimentos_Eliminar(ListView):
-	model = Alimento
-	template_name = 'admin/alimento/menu_eliminar_alimento.html'
+    model = Categoria
+    template_name = 'admin/categoria/categorias.html'
 
-
-class Crear_Alimento(CreateView):
-	model = Alimento
-	form_class = AlimentoForm
-	template_name = 'admin/alimento/crear_alimento.html'
-	success_url = reverse_lazy('menu_alimentos')
-
-class Editar_Alimento(UpdateView):
-	model = Alimento
-	form_class = AlimentoForm
-	template_name = 'admin/alimento/editar_alimento.html'
-	success_url = reverse_lazy('menu_alimentos')
-
-class Eliminar_Alimento(DeleteView):
-	model = Alimento
-	form_class = AlimentoForm
-	template_name = 'admin/alimento/eliminar_alimento.html'
-	success_url = reverse_lazy('menu_alimentos')
-
-
-
-
-class menu_Categoria(ListView):
-	model = Categoria
-	template_name = 'admin/categoria/categorias.html'
-
-
+@login_required(login_url='/administrador/ingreso/')
+@permission_required('usuarios.es_administrador', raise_exception=True)
 def menu_Categoria_Alimentos(request, categoria):
-	alimento = Alimento.objects.all()
-	contexto = {'alimentos': alimento, 'Categoria': categoria }
-	return render(request, 'admin/categoria/alimentos_categoria.html', contexto) 
+    alimento = Alimento.objects.all()
+    contexto = {'alimentos': alimento, 'Categoria': categoria }
+    return render(request, 'admin/categoria/alimentos_categoria.html', contexto) 
 
 
-class menu_Editar_Categoria(ListView):
-	model = Categoria
-	template_name = 'admin/categoria/menu_editar_categoria.html'
+class menu_Editar_Categoria(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    login_url='/administrador/ingreso/'
+    redirect_field_name = 'redirect_to'
+    permission_required = 'usuarios.es_administrador'
 
-class menu_Eliminar_Categoria(ListView):
-	model = Categoria
-	template_name = 'admin/categoria/menu_eliminar_categoria.html'
+    model = Categoria
+    template_name = 'admin/categoria/menu_editar_categoria.html'
 
+class menu_Eliminar_Categoria(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    login_url='/administrador/ingreso/'
+    redirect_field_name = 'redirect_to'
+    permission_required = 'usuarios.es_administrador'
 
-class Crear_Categoria(CreateView):
-	model = Categoria
-	form_class = CategoriaForm
-	template_name = 'admin/categoria/crear_categoria.html'
-	success_url = reverse_lazy('listado_categorias')
-
-class Editar_Categoria(UpdateView):
-	model = Categoria
-	form_class = CategoriaForm
-	template_name = 'admin/categoria/editar_categoria.html'
-	success_url = reverse_lazy('listado_categorias')
-
-class Eliminar_Categoria(DeleteView):
-	model = Categoria
-	form_class = CategoriaForm
-	template_name = 'admin/categoria/eliminar_categoria.html'
-	success_url = reverse_lazy('listado_categorias')
+    model = Categoria
+    template_name = 'admin/categoria/menu_eliminar_categoria.html'
 
 
+class Crear_Categoria(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    login_url='/administrador/ingreso/'
+    redirect_field_name = 'redirect_to'
+    permission_required = 'usuarios.es_administrador'
+
+    model = Categoria
+    form_class = CategoriaForm
+    template_name = 'admin/categoria/crear_categoria.html'
+    success_url = reverse_lazy('listado_categorias')
+
+class Editar_Categoria(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    login_url='/administrador/ingreso/'
+    redirect_field_name = 'redirect_to'
+    permission_required = 'usuarios.es_administrador'
+
+    model = Categoria
+    form_class = CategoriaForm
+    template_name = 'admin/categoria/editar_categoria.html'
+    success_url = reverse_lazy('listado_categorias')
+
+class Eliminar_Categoria(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+    login_url='/administrador/ingreso/'
+    redirect_field_name = 'redirect_to'
+    permission_required = 'usuarios.es_administrador'
+
+    model = Categoria
+    form_class = CategoriaForm
+    template_name = 'admin/categoria/eliminar_categoria.html'
+    success_url = reverse_lazy('listado_categorias')
 
 
+
+@login_required(login_url='/administrador/ingreso/')
+@permission_required('usuarios.es_administrador', raise_exception=True)
 def Registro_Repartidor(request):
-	repartidor = RepartidorForm()
-	if request.method == 'POST' :
-		repartidor = RepartidorForm(request.POST)
-		if repartidor.is_valid() :
-			subject = 'Bienvenido a la Trajinera Digital!'
-			message = 'El equipo Quetzal te da la Bienvenida tu contraseña es ' + str(repartidor.cleaned_data['contrasena']) + ' Accede con tu correo electronico'
-			recepient = str(repartidor.cleaned_data['correo'])
-			send_mail(subject, message, EMAIL_HOST_USER, [recepient], fail_silently = False)
-			repartidor.save()
-			return redirect('index_menu')
-	return render(request, 'admin/repartidor/registro_repartidor.html', {'form': repartidor})
+    repartidor = RepartidorForm()
+    tel = TelefonoForm()
+    if request.method == 'POST' :
+        repartidor = RepartidorForm(request.POST)
+        tel = TelefonoForm(request.POST)
+        if repartidor.is_valid() and tel.is_valid():
+            subject = 'Bienvenido a la Trajinera Digital!'
+            message = 'El equipo Quetzal te da la Bienvenida tu contraseña es ' + str(repartidor.cleaned_data['password1']) + ' Accede con tu correo electronico'
+            recepient = str(repartidor.cleaned_data['email'])
+            send_mail(subject, message, EMAIL_HOST_USER, [recepient], fail_silently = False)
+            user = repartidor.save()
+            rep = tel.save(commit=False)
+            rep.user = user
+            rep.save()
+            return redirect('index_menu')
+    return render(
+        request, 
+        'admin/repartidor/registro_repartidor.html', 
+        {'form': repartidor, 'tel' : tel}
+    )
+
+"""def Registro_Repartidor(request):
+    repartidor = RepartidorForm()
+    if request.method == 'POST' :
+        repartidor = RepartidorForm(request.POST)
+        if repartidor.is_valid() :
+            subject = 'Bienvenido a la Trajinera Digital!'
+            message = 'El equipo Quetzal te da la Bienvenida tu contraseña es ' + str(repartidor.cleaned_data['contrasena']) + ' Accede con tu correo electronico'
+            recepient = str(repartidor.cleaned_data['correo'])
+            send_mail(subject, message, EMAIL_HOST_USER, [recepient], fail_silently = False)
+            repartidor.save()
+            return redirect('index_menu')
+    return render(request, 'admin/repartidor/registro_repartidor.html', {'form': repartidor})
+"""
 
 
+class ordenes_entregadas(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    login_url='/administrador/ingreso/'
+    redirect_field_name = 'redirect_to'
+    permission_required = 'usuarios.es_administrador'
 
-class ordenes_entregadas(ListView):
-	model = Orden
-	template_name = 'admin/ordenes/ordenes_entregadas.html'
-
-
-class ordenes_pendientes(ListView):
-	model = Orden
-	template_name = 'admin/ordenes/ordenes_pendientes.html'
+    model = Orden
+    template_name = 'admin/ordenes/ordenes_entregadas.html'
 
 
+class ordenes_pendientes(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    login_url='/administrador/ingreso/'
+    redirect_field_name = 'redirect_to'
+    permission_required = 'usuarios.es_administrador'
+
+    model = Orden
+    template_name = 'admin/ordenes/ordenes_pendientes.html'
+
+@login_required(login_url='/administrador/ingreso/')
+@permission_required('usuarios.es_administrador', raise_exception=True)
 def orden_alimentos(request,pk):
-	orden = Orden.objects.get(id = pk)
-	alimentos = orden.alimentos_orden.all()
-	contexto = {'orden': alimentos}
-	return render(request, 'admin/ordenes/detalle_orden.html', contexto)
+    orden = Orden.objects.get(id = pk)
+    alimentos = orden.alimentos_orden.all()
+    contexto = {'orden': alimentos}
+    return render(request, 'admin/ordenes/detalle_orden.html', contexto)
 
 
-class Cambiar_estado(UpdateView):
-	model = Orden
-	form_class = OrdenesForm
-	template_name = 'admin/ordenes/cambiar_estado.html'
-	success_url = reverse_lazy('ordenes_pendientes')
+class Cambiar_estado(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    login_url='/administrador/ingreso/'
+    redirect_field_name = 'redirect_to'
+    permission_required = 'usuarios.es_administrador'
+
+    model = Orden
+    form_class = OrdenesForm
+    template_name = 'admin/ordenes/cambiar_estado.html'
+    success_url = reverse_lazy('ordenes_pendientes')
 
 

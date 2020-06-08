@@ -4,6 +4,9 @@ from apps.usuarios.views import *
 urlpatterns = [
     path('index_administrador/', indexAdministrador, name = 'index_menu'),
     
+    path('ingreso/', ingreso, name='ingreso'),
+    path('salir/', salir, name='salir'),
+
     path('menu_Alimentos_Administrador/', menu_Alimentos_Administrador.as_view() , name = 'menu_alimentos'),
     path('menu_Alimentos_Editar/', menu_Alimentos_Editar.as_view() , name = 'menu_editar_alimentos'),
     path('menu_Alimentos_Eliminar/', menu_Alimentos_Eliminar.as_view() , name = 'menu_eliminar_alimentos'),
