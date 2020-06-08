@@ -5,11 +5,14 @@
 <h1>Menú</h1>
 <p>Aqui esta todo lo que puedes ordenar</p>
 
-  <button type="submit" name="button">Agregar al carrito</button>
-  <button type="submit" name="button2">Agregar al carrito</button>
-  <button type="submit" name="button3">Agregar al carrito</button>
+{% for alimento in alimentos  %}
 
+    <h3>{{ alimento.nombre }}</h3>
+    ${{ alimento.precio }}
+    <br>
+    {{ alimento.categoria }}
 
+{% endfor %}
 
 </div>
 

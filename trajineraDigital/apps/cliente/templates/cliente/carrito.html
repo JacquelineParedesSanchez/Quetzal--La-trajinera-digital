@@ -5,6 +5,23 @@
 <h1>Carrito</h1>
 <p>Esta es tu orden</p>
 
+<table class='table'>
+  <thead>
+    <th>Alimento</th>
+    <th>Precio</th>
+  </thead>
+  <tfoot>
+    <tr>
+      <td>Total: {{ carrito.total }}</td>
+    </tr>
+  </tfoot>
+{% for alimento in alimentos  %}
+<tr>
+  <td>{{ alimento.nombre }}</td> <td> {{alimento.precio}}</td>
+</tr>
+
+{% endfor %}
+</table>
 
 
 </div>
