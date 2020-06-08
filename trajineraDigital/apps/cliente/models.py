@@ -15,7 +15,10 @@ class UserCliente(models.Model):
 	direccion = models.TextField(blank=False)
 	tel = RegexValidator(r'^(55)\d{8}', "El número debe estár en formato LADA.")
 	telefono = models.CharField(validators=[tel], max_length=10, blank=False)
-#	ordenes = models.ManyToOneField(Orden, blank=True)
+	
+	class Meta:
+		#proxy = True
+		permissions = [('es_cliente', "Acceso_Cliente")]
 
 	def __str__(self):
 		return "{}, {}, {}, {}, {}".format(
