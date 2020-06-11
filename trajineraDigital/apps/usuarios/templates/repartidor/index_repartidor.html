@@ -17,15 +17,15 @@
 	<div class="row align-items-center">
 		
 		<div class="col-12 col-sm-4">
-			<a href=""><button type="button" class="btn btn-primary btn-lg">Solicitar Ordenes</button></a><br><br><br>
+			<a href="{% url 'ordenes_disponibles_repartidor' %}"><button type="button" class="btn btn-primary btn-lg">Solicitar Ordenes</button></a><br><br><br>
 		</div>
 
 		<div class="col-12 col-sm-4">
-			<a href=""><button type="button" class="btn btn-primary btn-lg">Ver Ordenes Pendientes</button></a><br><br><br>
+			<a href="{% url 'ordenes_pendientes_repartidor' %}"><button type="button" class="btn btn-primary btn-lg">Ver Ordenes Pendientes</button></a><br><br><br>
 		</div>
 
 		<div class="col-12 col-sm-4">
-			<a href=""><button type="button" class="btn btn-primary btn-lg">Ver Ordenes Entregadas</button></a><br><br><br>
+			<a href="{% url 'ordenes_entregadas_repartidor' %}"><button type="button" class="btn btn-primary btn-lg">Ver Ordenes Entregadas</button></a><br><br><br>
 		</div> 
 
 	</div>

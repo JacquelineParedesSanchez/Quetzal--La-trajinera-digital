@@ -21,6 +21,7 @@
 						<td>Orden</td>
 						<td>Fecha</td>
 						<td>Cliente</td>
+						<td>Ubicacion</td>
 						<td>Acciones</td>
 					</tr>
 				</thead>
@@ -28,7 +29,7 @@
 				<tbody>
 					{% if  object_list %}
 					{% for Orden in object_list  %}
-					{% if Orden.estado_orden.id == 3 and Orden.repartidor_orden = False %}
+					{% if Orden.estado_orden.id == 3 and Orden.repartidor_orden == False %}
 					<tr>
 						<td>{{ Orden.id }}</td>
 						<td>{{ Orden.fecha_orden }}</td>

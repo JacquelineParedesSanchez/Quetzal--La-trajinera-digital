@@ -39,7 +39,7 @@ urlpatterns = [
     path('salir_repartidor/', salir_repartidor, name='salir_repartidor'),
 
     path('ordenes_entregadas_repartidor/', ordenes_entregadas_repartidor.as_view(),name = 'ordenes_entregadas_repartidor'),
-    #path('ordenes_pendientes_repartidor/', ordenes_pendientes_repartidor.as_view(),name = 'ordenes_pendientes_repartidor'),
-   # path('ordenes_disponibles_repartidor/', ordenes_disponibles_repartidor.as_view(),name = 'ordenes_disponibles_repartidor'),
+    path('ordenes_pendientes_repartidor/', ordenes_pendientes_repartidor.as_view(),name = 'ordenes_pendientes_repartidor'),
+    path('ordenes_disponibles_repartidor/', ordenes_disponibles_repartidor.as_view(),name = 'ordenes_disponibles_repartidor'),
 
 ]

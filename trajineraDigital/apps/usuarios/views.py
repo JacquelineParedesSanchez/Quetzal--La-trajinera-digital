@@ -313,3 +313,11 @@ class ordenes_pendientes_repartidor(LoginRequiredMixin, PermissionRequiredMixin,
     model = Orden
     template_name = 'repartidor/ordenes/ordenes_pendientes_repartidor.html'
 
+class ordenes_disponibles_repartidor(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    login_url='/administrador/ingreso_repartidor/'
+    redirect_field_name = 'redirect_to'
+    permission_required = 'usuarios.es_repartidor'
+
+    model = Orden
+    template_name = 'repartidor/ordenes/ordenes_disponibles.html'
+
