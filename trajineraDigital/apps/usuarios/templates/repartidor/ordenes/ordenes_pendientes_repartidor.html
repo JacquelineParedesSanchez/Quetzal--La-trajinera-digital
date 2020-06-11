@@ -1,0 +1,59 @@
+{% extends 'admin/alimento/alimento.html' %} 
+
+{% block title %} Ordenes Pendientes {% endblock %}
+
+{% block content %} 
+
+<div class="cont-top">
+	
+	<div class="row">
+		
+
+		<div class="col-12 col-md-12">
+
+			<h2>Ordenes</h2>
+			<h2>{{request.user.id}} , {{request.user.username}}</h2>
+
+			<table class="table table-bordered">
+
+				<thead>
+					<tr>
+						<td>Orden</td>
+						<td>Fecha</td>
+						<td>Cliente</td>
+						<td>Acciones</td>
+					</tr>
+				</thead>
+
+				<tbody>
+					{% if  object_list %}
+					{% for Orden in object_list  %}
+					{% if Orden.estado_orden.id != 4 and Orden.repartidor_orden.id == request.user.id%}
+					<tr>
+						<td>{{ Orden.id }}</td>
+						<td>{{ Orden.fecha_orden }}</td>
+						<td>{{ Orden.cliente_orden }}</td>
+						<td><a  class="btn btn-primary" href="">Alimentos</a></td>
+						<td><a  class="btn btn-primary" href="">Cambiar Estado</a></td>
+					</tr>
+					{% endif %}
+					{% endfor %}
+
+					{% else %}
+					<h1>No hay Ordenes Pendientes</h1>
+					{% endif %}
+				</tbody>
+
+			</table>
+
+		</div>
+
+	</div>
+
+	<button><a href="{% url 'index_menu_repartidor' %}">Menu</a></button>
+
+
+
+</div>
+</div>
+{% endblock %} 

@@ -2,6 +2,8 @@ from django.urls import path
 from apps.usuarios.views import *
 
 urlpatterns = [
+
+    #URLS Administrador
     path('index_administrador/', indexAdministrador, name = 'index_menu'),
     
     path('ingreso/', ingreso, name='ingreso'),
@@ -28,5 +30,16 @@ urlpatterns = [
     path('ordenes_pendientes/', ordenes_pendientes.as_view(),name = 'ordenes_pendientes'),
     path('orden_alimentos/<pk>', orden_alimentos ,name = 'orden_alimentos'),
     path('cambiar_estado/<pk>', Cambiar_estado.as_view() , name = 'cambiar_estado'),
+
+
+    #ULRS Repartidor
+    path('index_repartidor/', indexRepartidor, name = 'index_menu_repartidor'),
+
+    path('ingreso_repartidor/', ingreso_repartidor, name='ingreso_repartidor'),
+    path('salir_repartidor/', salir_repartidor, name='salir_repartidor'),
+
+    path('ordenes_entregadas_repartidor/', ordenes_entregadas_repartidor.as_view(),name = 'ordenes_entregadas_repartidor'),
+    path('ordenes_pendientes_repartidor/', ordenes_pendientes_repartidor.as_view(),name = 'ordenes_pendientes_repartidor'),
+    path('ordenes_disponibles_repartidor/', ordenes_disponibles_repartidor.as_view(),name = 'ordenes_disponibles_repartidor'),
 
 ]

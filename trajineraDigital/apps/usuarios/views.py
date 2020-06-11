@@ -253,4 +253,61 @@ class Cambiar_estado(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     template_name = 'admin/ordenes/cambiar_estado.html'
     success_url = reverse_lazy('ordenes_pendientes')
 
+def ingreso_repartidor(request):
+    if request.user.is_authenticated:
+        return redirect('/administrador/index_repartidor')
+
+    if request.method == 'POST':
+        form = IngresoForm(request.POST)
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        
+        if user:
+            login(request, user)
+
+            return redirect('/administrador/index_repartidor/')
+        else:
+
+            return render(
+                request,
+                'autenticacion/login_repartidor.html',
+                {'form' : form}
+            )
+    else:
+        form = IngresoForm()
+        args = {'form' : form}
+
+        return render(request, "autenticacion/login_repartidor.html", args) 
+
+
+@login_required(login_url='/administrador/ingreso_repartidor/')
+@permission_required('usuarios.es_repartidor', raise_exception=True)
+def indexRepartidor(request):
+    return render(request,'repartidor/index_repartidor.html')
+
+
+@login_required(login_url='/administrador/ingreso_repartidor/')
+@permission_required('usuarios.es_repartidor', raise_exception=True)
+def salir_repartidor(request):
+    logout(request)
+
+    return redirect('/administrador/ingreso_repartidor/') 
+
+class ordenes_entregadas_repartidor(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    login_url='/administrador/ingreso_repartidor/'
+    redirect_field_name = 'redirect_to'
+    permission_required = 'usuarios.es_repartidor'
+
+    model = Orden
+    template_name = 'repartidor/ordenes/ordenes_entregadas_repartidor.html'
+
+
+class ordenes_pendientes_repartidor(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    login_url='/administrador/ingreso_repartidor/'
+    redirect_field_name = 'redirect_to'
+    permission_required = 'usuarios.es_repartidor'
+
+    model = Orden
+    template_name = 'repartidor/ordenes/ordenes_pendientes_repartidor.html'
 

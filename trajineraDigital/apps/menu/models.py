@@ -8,7 +8,7 @@ class Estado(models.Model):
 	nombre = models.CharField(max_length=15)
 	
 	def __str__(self):
-		return '{}'.format(self.nombre)
+		return '{} {}'.format(self.id,self.nombre)
 
 class Categoria(models.Model):
 	
@@ -34,7 +34,7 @@ class Orden(models.Model):
 
 	fecha_orden = models.DateField()
 	estado_orden = models.ForeignKey(Estado, null=True , blank=True, on_delete=models.CASCADE)
-	rden = models.ForeignKey(UserCliente, null=True , blank=True, on_delete=models.CASCADE)
+	orden = models.ForeignKey(UserCliente, null=True , blank=True, on_delete=models.CASCADE)
 	repartidor_orden = models.ForeignKey(Repartidor, null=True , blank=True, on_delete=models.CASCADE)
 	alimentos_orden = models.ManyToManyField(Alimento, blank=True)
 

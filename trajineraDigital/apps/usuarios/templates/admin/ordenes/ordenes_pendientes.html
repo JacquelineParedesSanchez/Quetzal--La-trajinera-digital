@@ -33,7 +33,7 @@
 				<tbody>
 					{% if  object_list %}
 					{% for Orden in object_list  %}
-					{% if Orden.estado_orden.id != 6 %}
+					{% if Orden.estado_orden.id != 4 %}
 					<tr>
 						<td>{{ Orden.id }}</td>
 						<td>{{ Orden.estado_orden.nombre }}</td>
