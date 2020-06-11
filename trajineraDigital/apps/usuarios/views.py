@@ -7,7 +7,7 @@ from django.core.mail import send_mail
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.decorators import login_required, permission_required
-
+from django.contrib.auth.models import User, Permission
 from apps.menu.models import Alimento, Categoria, Orden
 from apps.usuarios.models import Administrador
 from apps.usuarios.forms import AlimentoForm, CategoriaForm, RepartidorForm, OrdenesForm, IngresoForm, TelefonoForm
@@ -192,6 +192,8 @@ def Registro_Repartidor(request):
             recepient = str(repartidor.cleaned_data['email'])
             send_mail(subject, message, EMAIL_HOST_USER, [recepient], fail_silently = False)
             user = repartidor.save()
+            permiso = Permission.objects.get(name='Acceso_Repartidor')
+            user.user_permissions.add(permiso)
             rep = tel.save(commit=False)
             rep.user = user
             rep.save()
