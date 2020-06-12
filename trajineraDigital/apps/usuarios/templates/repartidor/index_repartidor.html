@@ -5,42 +5,41 @@
 {% block navbar %} 
 
 <nav class="navbar navbar-light bg-success">
-  <span class="navbar-brand mb-0 h1">La Trajinera Digital</span>
-  <span class="navbar-brand mb-0 h1">Repartidor</span>
+	<span class="navbar-brand mb-0 h1">La Trajinera Digital</span>
+	<span class="navbar-brand mb-0 h1">Repartidor</span>
 </nav>
 
 {% endblock %}
 
 {% block content %} 
-<div class="container">
-	
-	<div class="row align-items-center">
+<div class="cont-top">
+	<div class="container">
 		
-		<div class="col-12 col-sm-4">
-			<a href="{% url 'ordenes_disponibles_repartidor' %}"><button type="button" class="btn btn-primary btn-lg">Solicitar Ordenes</button></a><br><br><br>
-		</div>
+		<div class="row align-items-center">
+			
+			<div class="col-12 col-sm-4">
+				<a href="{% url 'ordenes_disponibles_repartidor' %}"><button type="button" class="btn btn-outline-success">Solicitar Ordenes</button></a><br><br><br>
+			</div>
 
-		<div class="col-12 col-sm-4">
-			<a href="{% url 'ordenes_pendientes_repartidor' %}"><button type="button" class="btn btn-primary btn-lg">Ver Ordenes Pendientes</button></a><br><br><br>
-		</div>
+			<div class="col-12 col-sm-4">
+				<a href="{% url 'ordenes_pendientes_repartidor' %}"><button type="button" class="btn btn-outline-success">Ver Ordenes Pendientes</button></a><br><br><br>
+			</div>
 
-		<div class="col-12 col-sm-4">
-			<a href="{% url 'ordenes_entregadas_repartidor' %}"><button type="button" class="btn btn-primary btn-lg">Ver Ordenes Entregadas</button></a><br><br><br>
-		</div> 
+			<div class="col-12 col-sm-4">
+				<a href="{% url 'ordenes_entregadas_repartidor' %}"><button type="button" class="btn btn-outline-success">Ver Ordenes Entregadas</button></a><br><br><br>
+			</div> 
+
+		</div>
 
 	</div>
 
-</div>
 
 
 
-<div class="container">
-	<div class="row align-items-center">
-	<center><a href="{% url 'salir_repartidor' %}"><button type="button" class="btn btn-primary btn-lg">Log Out</button></center>
-</div>
-
-</div>
-
-{% endblock %}
 	
+	<center><a href="{% url 'salir_repartidor' %}"><button type="button" class="btn btn-outline-danger">Salir</button></a></center>
+
+</div>
+{% endblock %}
+
 

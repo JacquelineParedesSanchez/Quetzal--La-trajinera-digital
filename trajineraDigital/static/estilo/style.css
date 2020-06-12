@@ -3,9 +3,14 @@ h4 {
 } 
 
 .cont-top{
-	margin-top: 50px;
-	margin-bottom: 50px;
+	margin-top: 250px; 
+	margin-bottom: 250px;
 }
+
+.iconos a {
+	padding-right: 30px;
+}
+
 
 #footer_trajinera {
 	margin-top: 210px;
