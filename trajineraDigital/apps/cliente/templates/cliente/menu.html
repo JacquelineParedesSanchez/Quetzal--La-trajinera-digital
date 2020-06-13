@@ -7,10 +7,13 @@
 
 {% for alimento in alimentos  %}
 
-    <h3>{{ alimento.nombre }}</h3>
+    <h2>{{ alimento.categoria }}</h2>
+    <h5>{{ alimento.nombre }}</h5>
+    <a href="{{ object.agregar_carrito }}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Agregar al carrito</a>
     ${{ alimento.precio }}
+
     <br>
-    {{ alimento.categoria }}
+
 
 {% endfor %}
 

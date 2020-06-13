@@ -85,7 +85,12 @@ def quitar_carrito(request, nombre):
         carrito = carrito_qs[0]
         if carrito.alimentos.filter(nombre=alimento.nombre).exists():
             ordenar = Ordenar.objects.filter(alimento=alimento, user=request.user, ordenado=False)[0]
-            carrito.alimento.remove(ordenar)
+            if ordenar.cantidad > 1:
+                ordenar.cantidad -=1
+
+                ordenar.save()
+            else:
+                ordenar.delete()
             messages.info(request,"Se quitado este objeto al carrito")
             return redirect("menu",nombre= nombre)
         else:
