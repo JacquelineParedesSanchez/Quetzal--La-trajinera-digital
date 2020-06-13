@@ -18,7 +18,7 @@
 
 		<div class="col-12 col-md-8">
 
-			<h2>Ordenes</h2>
+			<h2>Ordenes <a href="{% url 'ordenes_pendientes' %}"><button type="button" class="btn btn-success">Actualizar</button></a></h2> 
 
 			<table class="table table-bordered">
 
@@ -26,6 +26,7 @@
 					<tr>
 						<td>Orden</td>
 						<td>Estado</td>
+						<td>Acciones</td>
 						<td>Acciones</td>
 					</tr>
 				</thead>
@@ -37,7 +38,11 @@
 					<tr>
 						<td>{{ Orden.id }}</td>
 						<td>{{ Orden.estado_orden.nombre }}</td>
-						<td><a  class="btn btn-primary" href="{% url 'cambiar_estado' Orden.id %}">Cambiar Estado</a></td>
+						{% if Orden.estado_orden.id != 3 %}
+
+						<td><a  class="btn btn-primary" href="{% url 'cambiar_estado' Orden.id %}">Cambiar Estado</a></td>						
+						{% endif %}
+						<td><a  class="btn btn-primary" href="{% url 'orden_alimentos' Orden.id %}">Ver Alimentos</a></td>
 					</tr>
 					{% endif %}
 					{% endfor %}

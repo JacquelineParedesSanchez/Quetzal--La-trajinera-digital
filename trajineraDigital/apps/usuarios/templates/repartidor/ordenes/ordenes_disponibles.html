@@ -29,11 +29,11 @@
 				<tbody>
 					{% if  object_list %}
 					{% for Orden in object_list  %}
-					{% if Orden.estado_orden.id == 3 and Orden.repartidor_orden == False %}
+					{% if Orden.repartidor_orden == Null %}
 					<tr>
 						<td>{{ Orden.id }}</td>
 						<td>{{ Orden.fecha_orden }}</td>
-						<td>{{ Orden.cliente_orden }}</td>
+						<td>{{ Orden.orden }}</td>
 						<td><a  class="btn btn-primary" href="">Ver Direccion</a></td>
 						<td><a  class="btn btn-primary" href="">Aceptar Orden</a></td>
 					</tr>

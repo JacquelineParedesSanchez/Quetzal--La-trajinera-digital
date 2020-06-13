@@ -13,6 +13,9 @@ class Estado(models.Model):
 class Categoria(models.Model):
 	
 	nombre = models.CharField(max_length = 30)
+	descripcion = models.TextField(null=True)
+	foto = models.ImageField(null = True ,upload_to='categorias/images/')
+	
 
 	def __str__(self):
 		return '{}'.format(self.nombre)
@@ -23,7 +26,7 @@ class Alimento(models.Model):
 	precio = models.IntegerField()
 	descripcion = models.TextField()
 	categoria = models.ForeignKey(Categoria, null=True, blank=True, on_delete=models.CASCADE)
-	foto = models.ImageField(upload_to='media/alimentos/images/')
+	foto = models.ImageField(upload_to='alimentos/images/')
 	
 	def __str__(self):
 		return '{}'.format(self.nombre)

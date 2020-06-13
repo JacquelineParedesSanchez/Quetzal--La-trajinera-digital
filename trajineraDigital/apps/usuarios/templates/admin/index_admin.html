@@ -5,10 +5,10 @@
 
 {% block navbar %} 
 
-<nav class="navbar navbar-light bg-success">
+<nav class="navbar navbar-light bg-success"><img style="width: 100px; height: 100px;" src="{% static 'image/logo.jpg' %}">
 	<span class="navbar-brand mb-0 h1">La Trajinera Digital</span>
 	<span class="navbar-brand mb-0 h1">Administrador</span>
-</nav>
+</nav> 
 
 {% endblock %}
 
@@ -19,11 +19,11 @@
 		<div class="row align-items-center">
 
 			<div class="col-12 col-sm-6 iconos"><img style="width: 150px; height: 150px;" src="{% static 'image/restaurant.png' %}">
-				<a href="{% url 'menu_alimentos' %}"><button type="button" class="btn btn btn-outline-success boton">Alimentos</button></a><br><br><br>
+				<a href="{% url 'menu_alimentos' %}" style="padding-left: 50px;"><button type="button" class="btn btn btn-outline-success boton">Alimentos</button></a><br><br><br>
 			</div>
 
 			<div class="col-12 col-sm-6 iconos"><img style="width: 150px; height: 150px;" src="{% static 'image/motorcycle.png' %}">
-				<a href="{% url 'repartidor_registro' %}"><button type="button" class="btn btn btn-outline-success boton">Repartidores</button></a><br><br><br>
+				<a href="{% url 'repartidor_registro' %}" style="padding-left: 50px;"><button type="button" class="btn btn btn-outline-success boton">Repartidores</button></a><br><br><br>
 			</div> 
 
 		</div>
@@ -33,10 +33,10 @@
 	<div class="container">
 		<div class="row align-items-center">
 			<div class="col-12 col-sm-6 iconos"><img style="width: 150px; height: 150px;" src="{% static 'image/menu.png' %}">
-				<a href="{% url 'listado_categorias' %}"><button type="button" class="btn btn btn-outline-success boton">Categorias</button></a><br><br><br>
+				<a href="{% url 'listado_categorias' %}" style="padding-left: 50px;"><button type="button" class="btn btn btn-outline-success boton">Categorias</button></a><br><br><br>
 			</div>
 			<div class="col-12 col-sm-6 iconos"><img style="width: 150px; height: 150px;" src="{% static 'image/bell-covering-hot-dish.png' %}">
-				<a href="{% url 'ordenes_entregadas' %}"><button type="button" class="btn btn btn-outline-success boton">Ordenes</button></a><br><br><br>
+				<a href="{% url 'ordenes_entregadas' %}" style="padding-left: 50px;"><button type="button" class="btn btn btn-outline-success boton">Ordenes</button></a><br><br><br>
 			</div>
 		</div>
 	</div>

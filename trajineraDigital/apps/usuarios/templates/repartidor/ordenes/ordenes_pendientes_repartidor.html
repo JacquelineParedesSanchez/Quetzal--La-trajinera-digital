@@ -29,13 +29,13 @@
 				<tbody>
 					{% if  object_list %}
 					{% for Orden in object_list  %}
-					{% if Orden.estado_orden.id != 4 and Orden.repartidor_orden.id == request.user.id%}
+					{% if Orden.estado_orden.id != 4 and Orden.repartidor_orden.user.id == request.user.id %}
 					<tr>
 						<td>{{ Orden.id }}</td>
 						<td>{{ Orden.fecha_orden }}</td>
-						<td>{{ Orden.cliente_orden }}</td>
+						<td>{{ Orden.orden }}</td>
 						<td><a  class="btn btn-primary" href="">Alimentos</a></td>
-						<td><a  class="btn btn-primary" href="">Cambiar Estado</a></td>
+						<td><a  class="btn btn-primary" href="">Entregado</a></td>
 					</tr>
 					{% endif %}
 					{% endfor %}
