@@ -41,5 +41,8 @@ urlpatterns = [
     path('ordenes_entregadas_repartidor/', ordenes_entregadas_repartidor.as_view(),name = 'ordenes_entregadas_repartidor'),
     path('ordenes_pendientes_repartidor/', ordenes_pendientes_repartidor.as_view(),name = 'ordenes_pendientes_repartidor'),
     path('ordenes_disponibles_repartidor/', ordenes_disponibles_repartidor.as_view(),name = 'ordenes_disponibles_repartidor'),
-
+    path('aceptar_orden/<pk>', aceptar_orden , name = 'aceptar_orden'),
+    path('orden_repartidor/<pk1>/<pk2>', confirmar_orden_repartidor , name = 'confirmar_orden'),
+    path('orden_entregada/<pk>', orden_entregada , name = 'orden_entregada'),
+    path('confirmar_entrega/<pk>', confirmar_entrega , name = 'confirmar_entrega'),
 ]

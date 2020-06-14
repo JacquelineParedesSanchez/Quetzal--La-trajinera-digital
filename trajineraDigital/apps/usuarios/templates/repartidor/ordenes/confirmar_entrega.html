@@ -1,0 +1,17 @@
+{% extends 'admin/alimento/alimento.html' %} 
+
+{% block title %} Entrega {% endblock %}
+
+{% block content %} 
+
+<div class="cont-top">
+
+	<h2>Se ha entregado el Pedido {{ Pedido.id }} ! Buen Trabajo!</h2> 
+
+	<center><a href="{% url 'ordenes_entregadas_repartidor' %}"><button type="button" class="btn btn-outline-dark">Pedidos Entregados</button></a></center>
+
+	
+
+</div>
+
+{% endblock %} 

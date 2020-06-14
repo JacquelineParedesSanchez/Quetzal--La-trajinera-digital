@@ -43,7 +43,7 @@ class Repartidor(models.Model):
 		permissions = [('es_repartidor', "Acceso_Repartidor")]
 
 	def __str__(self):
-		return '{} {} {}'.format(self.user.first_name, self.user.last_name, self.telefono)
+		return '{} {} {}'.format(self.user.first_name, self.user.last_name, self.id)
 
 	def __repr__(self):
 		return self.__str__()

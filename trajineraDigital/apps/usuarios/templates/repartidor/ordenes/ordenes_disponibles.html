@@ -11,7 +11,7 @@
 
 		<div class="col-12 col-md-12">
 
-			<h2>Ordenes</h2>
+			<h2>Ordenes Disponibles</h2>
 			<h2>{{request.user.id}} , {{request.user.username}}</h2>
 
 			<table class="table table-bordered">
@@ -33,9 +33,9 @@
 					<tr>
 						<td>{{ Orden.id }}</td>
 						<td>{{ Orden.fecha_orden }}</td>
-						<td>{{ Orden.orden }}</td>
-						<td><a  class="btn btn-primary" href="">Ver Direccion</a></td>
-						<td><a  class="btn btn-primary" href="">Aceptar Orden</a></td>
+						<td>{{ Orden.orden.user.first_name }} {{ Orden.orden.user.last_name }}</td>
+						<td>{{ Orden.orden.direccion }}</td>
+						<td><a  class="btn btn-primary" href="{% url 'aceptar_orden' Orden.id %}">Aceptar Orden</a></td>
 					</tr>
 					{% endif %}
 					{% endfor %}

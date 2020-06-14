@@ -8,8 +8,9 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.models import User, Permission
-from apps.menu.models import Alimento, Categoria, Orden
-from apps.usuarios.models import Administrador
+from apps.menu.models import Alimento, Categoria, Orden, Estado
+from apps.usuarios.models import Administrador, Repartidor
+from django.contrib.auth.models import User
 from apps.usuarios.forms import AlimentoForm, CategoriaForm, RepartidorForm, OrdenesForm, IngresoForm, TelefonoForm
 from trajineraDigital.settings import EMAIL_HOST_USER
 
@@ -321,3 +322,30 @@ class ordenes_disponibles_repartidor(LoginRequiredMixin, PermissionRequiredMixin
     model = Orden
     template_name = 'repartidor/ordenes/ordenes_disponibles.html'
 
+def aceptar_orden(request,pk):
+    orden = Orden.objects.get(id = pk)
+    contexto = {'pedido': orden}
+    return render(request,'repartidor/ordenes/orden.html', contexto)
+
+def confirmar_orden_repartidor(request, pk1, pk2):
+    orden = Orden.objects.get(id = pk1)
+    usuario = User.objects.get(id = pk2)
+    repartidor = Repartidor.objects.get(user = usuario)
+    orden.repartidor_orden = repartidor
+    orden.save()
+    contexto = {'Pedido': orden, 'Repartidor': repartidor}
+    return render(request,'repartidor/ordenes/orden_repartidor.html',contexto)
+
+
+def orden_entregada(request, pk):
+    orden = Orden.objects.get(id = pk)
+    contexto = {'pedido': orden}
+    return render(request,'repartidor/ordenes/orden_entregada.html',contexto)
+
+def confirmar_entrega(request,pk):
+    orden = Orden.objects.get(id = pk)
+    estado = Estado.objects.get(id = 4)
+    orden.estado_orden = estado
+    orden.save()
+    contexto = {'Pedido': orden}
+    return render(request,'repartidor/ordenes/confirmar_entrega.html', contexto)

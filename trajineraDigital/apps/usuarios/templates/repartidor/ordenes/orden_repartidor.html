@@ -1,0 +1,28 @@
+{% extends 'admin/alimento/alimento.html' %} 
+
+{% block title %} Orden Aceptada {% endblock %}
+
+{% block content %} 
+
+<div class="cont-top">
+
+	<h2>Haz aceptado el Pedido {{ Pedido.id }} con Ubicacion a {{ Pedido.orden.direccion }}</h2>
+	
+	<div class="row">
+		
+
+		<div class="col-12 col-md-12">
+
+			<h2>{{ Repartidor.id }} , {{ Repartidor.user.username }} , {{ Repartidor.telefono }}</h2>
+
+		</div>
+
+	</div>
+
+	<center><a href="{% url 'ordenes_pendientes_repartidor' %}"><button type="button" class="btn btn-outline-dark">Pedidos Pendientes</button></a></center>
+
+	
+
+</div>
+
+{% endblock %} 

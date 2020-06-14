@@ -11,7 +11,7 @@
 
 		<div class="col-12 col-md-12">
 
-			<h2>Ordenes</h2>
+			<h2>Ordenes Pendientes</h2>
 			<h2>{{request.user.id}} , {{request.user.username}}</h2>
 
 			<table class="table table-bordered">
@@ -21,7 +21,8 @@
 						<td>Orden</td>
 						<td>Fecha</td>
 						<td>Cliente</td>
-						<td>Ver Orden</td>
+						<td>Direccion</td>
+						<td>Estado</td>
 						<td>Acciones</td>
 					</tr>
 				</thead>
@@ -33,9 +34,10 @@
 					<tr>
 						<td>{{ Orden.id }}</td>
 						<td>{{ Orden.fecha_orden }}</td>
-						<td>{{ Orden.orden }}</td>
-						<td><a  class="btn btn-primary" href="">Alimentos</a></td>
-						<td><a  class="btn btn-primary" href="">Entregado</a></td>
+						<td>{{ Orden.orden.user.first_name }}</td>
+						<td>{{ Orden.orden.direccion }}</td>
+						<td>{{ Orden.estado_orden.nombre }}</td>
+						<td><a  class="btn btn-primary" href="{% url 'orden_entregada' Orden.id %}">Entregado</a></td>
 					</tr>
 					{% endif %}
 					{% endfor %}

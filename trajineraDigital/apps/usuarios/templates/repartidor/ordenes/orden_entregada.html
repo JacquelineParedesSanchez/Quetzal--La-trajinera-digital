@@ -1,0 +1,32 @@
+{% extends 'admin/alimento/alimento.html' %} 
+
+{% block title %} Orden Entregada {% endblock %}
+
+{% block content %} 
+
+<div class="cont-top">
+
+	<h2>Se ha entregedado el pedido {{ pedido.id }} con Ubicacion en {{ pedido.orden.direccion }} satisfactoriamente?</h2>
+	
+	<div class="row">
+		
+
+		<div class="col-12 col-md-12">
+
+			<h2>{{request.user.id}} , {{request.user.username}}</h2>
+
+		</div>
+
+	</div>
+
+	<div class="row">
+
+		<div class="col-12 col-md-6"><center><a href="{% url 'confirmar_entrega' pedido.id %}"><button type="button" class="btn btn-success">Si, Entregado</button></a></center></div>
+		
+		<div class="col-12 col-md-6"><center><a href="{% url 'ordenes_pendientes_repartidor' %}"><button type="button" class="btn btn-danger">No, aun esta pendiente</button></a></center></div>
+		
+	</div>
+
+</div>
+
+{% endblock %} 
