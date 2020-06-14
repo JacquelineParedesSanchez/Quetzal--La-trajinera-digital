@@ -62,7 +62,7 @@ def carrito(request):
 @login_required
 def agregar_carrito(request, nombre):
     alimento = get_object_or_404(Alimento, nombre=nombre)
-    ordenar, created = Ordenar.objects.get_or_create(alimento=alimento, user=request.user, ordenado=False)
+    ordenar, created= Ordenar.objects.get_or_create(alimento=alimento, user=request.user, ordenado=False)
     carrito_qs = Carrito.objects.filter(user=request.user, ordenado=False)
     if carrito_qs.exists():
         carrito = carrito_qs[0]

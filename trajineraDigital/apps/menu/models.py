@@ -28,6 +28,9 @@ class Alimento(models.Model):
 	def __str__(self):
 		return '{}'.format(self.nombre)
 
+	def agregar_carrito_url(self):
+		return reverse('cliente:agregar-carrito', kwargs ={'nombre':self.nombre})
+
 
 
 class Orden(models.Model):
