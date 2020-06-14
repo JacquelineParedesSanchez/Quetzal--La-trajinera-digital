@@ -1,10 +1,11 @@
 {% extends 'base/base.html' %} 
+{% load static %}
 
 {% block title %} Tareas {% endblock %}
 
 {% block navbar %} 
 
-<nav class="navbar navbar-light bg-success">
+<nav class="navbar navbar-light bg-success"><img style="width: 100px; height: 100px;" src="{% static 'image/logo.jpg' %}">
 	<span class="navbar-brand mb-0 h1">La Trajinera Digital</span>
 	<span class="navbar-brand mb-0 h1">Repartidor</span>
 </nav>
