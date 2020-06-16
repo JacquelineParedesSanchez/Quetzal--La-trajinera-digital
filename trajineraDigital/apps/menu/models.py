@@ -22,8 +22,8 @@ class Categoria(models.Model):
 
 class Alimento(models.Model):
 
-	nombre = models.CharField(max_length=30)
-	precio = models.IntegerField()
+	nombre = models.CharField(max_length = 30)
+	precio = models.PositiveIntegerField()
 	descripcion = models.TextField()
 	categoria = models.ForeignKey(Categoria, null=True, blank=True, on_delete=models.CASCADE)
 	foto = models.ImageField(upload_to='alimentos/images/')
