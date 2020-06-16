@@ -93,8 +93,7 @@ def principal(request):
 @permission_required('cliente.es_cliente', raise_exception=True)
 def menu(request):
     categoria = Categoria.objects.all()
-    alimentos = Alimento.objects.all()
-    args = {'user':request.user, 'Categoria': categoria, 'Alimentos': alimentos}
+    args = {'user':request.user, 'Categoria': categoria}
     return render(request, 'cliente/menu.html', args)
 
 @login_required(login_url='/home/login/')
@@ -102,3 +101,10 @@ def menu(request):
 def carrito(request):
     args = {'user':request.user}
     return render(request, 'cliente/carrito.html', args)
+
+
+def ver_menu(request,pk):
+    categoria = Categoria.objects.get(id  = pk)
+    alimentos = Alimento.objects.filter(categoria = categoria)
+    contexto = {'Categoria': categoria, 'Alimentos': alimentos }
+    return render(request, 'cliente/ver_carta.html', contexto)

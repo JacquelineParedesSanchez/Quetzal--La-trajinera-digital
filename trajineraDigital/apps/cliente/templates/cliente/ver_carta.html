@@ -1,27 +1,12 @@
-{% extends 'admin/index_admin.html' %} 
+{% extends 'base.html' %}
 {% load static %}
 
-{% block title %} Alimentos {% endblock %}
-
-{% block content %} 
-
+{% block body %}
 <div class="cont-top">
 	
-	<div class="row">
-		
-		<div class="col-12 col-md-4">
-			<ul class="list-group">
-				<li class="list-group-item active"><a href="{% url 'menu_alimentos' %}">Ver Alimentos</a></li>
-				<li class="list-group-item"><a href="{% url 'crear_alimento' %}">Agregar Alimentos</a></li>
-				<li class="list-group-item"><a href="{% url 'menu_editar_alimentos' %}">Editar Alimentos</a></li>
-				<li class="list-group-item"><a href="{% url 'menu_eliminar_alimentos' %}">Eliminar Alimentos</a></li>
-				<li class="list-group-item"><a href="{% url 'index_menu' %}">Administrar</a></li>
-			</ul>
-		</div>
-
-		<div class="col-12 col-md-8">
-
-			<div id="Alimentos"> 
+	<h1>{{ Categoria.nombre }}</h1>
+	
+	<div id="Alimentos"> 
 
 				<h2>Alimentos</h2>
 				
@@ -30,38 +15,34 @@
 
 				<div class="sliderAlimentos"> 
 
-					{% if  object_list %} 
-					{% for Alimento in object_list  %}
+					{% if  Alimentos %} 
+					{% for Alimento in Alimentos %}
 					<div class="bkgndAlimento">
 
-						<div class="card" style="width: 12rem;">
+						<div class="card">
 							<img class="card-img-top" src="{{ Alimento.foto.url }}" alt="Card IMG">
 							<h3>{{ Alimento.nombre }}</h3>
 							<div class="body-card">
-								<p class="card-text">{{ Alimento.descripcion  }}</p>
+								<center><p class="card-text">{{ Alimento.descripcion  }}</p></center>
 							</div>
-							<h5>${{ Alimento.precio }}</h5>
-							<h5>{{ Alimento.categoria }}</h5>
+							<h5>${{ Alimento.precio }}</h5><br>
+							<h5><a href=""><button type="button" class="btn btn-outline-info">Agregar al carrito</button></a></h5>
 						</div>
 
 					</div>
 					{% endfor %}
 
 					{% else %}
-					<h1>No hay registro de Alimentos</h1>
+					<h1>No hay Alimentos por el momentos, disculpe las molestias</h1>
 					{% endif %}
 
 				</div>
 
 			</div>
-			
-		</div>
-
-		
-
-	</div>
+	
 </div>
-{% endblock %} 
+
+{% endblock %}
 
 {% block extra_js %} 
 <script type="text/javascript">
@@ -83,7 +64,7 @@
 			{
 				breakpoint: 630,
 				settings: {
-					slidesToShow: 2,
+					slidesToShow: 1,
 					slidesToScroll: 1,
 					infinite: true,
 					dots: false
@@ -103,4 +84,3 @@
 	});
 </script>
 {% endblock %} 
-

@@ -2,54 +2,30 @@
 {% load static %}
 
 {% block body %}
-<div class="container">
+<div class="cont-top">
 	
 	<h1>Menú</h1>
 	
-	<p>Aqui esta todo lo que puedes ordenar</p>
+	<p></p>
 
 	<ul>
 		{% for categoria in Categoria %}
-		<li>
+		<li class="categoria">
 			<div class="row">
 
-				<h2>{{ categoria.nombre }}</h2>
-				<p>{{ categoria.descripcion }}</p><br>
+				<div class="col-12 col-md-4">
+					<h2>{{ categoria.nombre }}</h2>
+				    <p>{{ categoria.descripcion }}</p><br>
+				    <p><a href="/home/carta/{{ categoria.id }}"><button type="button" class="btn btn-outline-dark">Ver Alimentos</button></a></p>
+				</div>
 
-				<div class="col-12 col-md-12">
-
-					<div id="Alimentos"> 
-
-						<div class="arrowsAlimentos">
-						</div>
-
-						<div class="sliderAlimentos"> 
-
-							{% for alimento in Alimentos  %}
-							{% if alimento.categoria.nombre == categoria.nombre %}
-							<div class="bkgndAlimento">
-
-								<div class="card" style="width: 12rem;">
-									<img class="card-img-top" src="{{ alimento.foto.url }}" alt="Card IMG">
-									<h3>{{ alimento.nombre }}</h3>
-									<div class="body-card">
-										<p class="card-text">{{ alimento.descripcion  }}</p>
-									</div>
-									<h5>${{ alimento.precio }}</h5>
-									<h5>{{ alimento.categoria }}</h5>
-								</div>
-
-							</div>
-							{% endif %}
-							{% endfor %}
-
-						</div>
-
-					</div>
+				
+				<div class="col-12 col-md-8">
+					<a href="/home/carta/{{ categoria.id }}"><img src="{{ categoria.foto.url }}" class="img-fluid" alt="Responsive image"></a>
 				</div>
 
 			</div>
-		</li>
+		</li> <br><br>
 		{% endfor %}
 	</ul>
 	
@@ -57,43 +33,4 @@
 
 {% endblock %}
 
-{% block extra_js %} 
-<script type="text/javascript">
-	$(document).ready(function(){
-		
-		$('.sliderAlimentos').slick({
-			dots: false,
-			infinite: true,
-			speed: 300,
-			arrows: true,
-			slidesToShow: 3,
-			slidesToScroll: 1,
-			autoplay: true,
-			autoplaySpeed: 3000,
-			appendArrows: $(".arrowsAlimentos"),
-			prevArrow: "<img class='prev' src='{% static 'image/arrow.png' %}'>",
-			nextArrow: "<img class='next' src='{% static 'image/arrow.png' %}'>",
-			responsive:[
-			{
-				breakpoint: 630,
-				settings: {
-					slidesToShow: 2,
-					slidesToScroll: 1,
-					infinite: true,
-					dots: false
-				}
-			},{
-				breakpoint: 400,
-				settings: {
-					slidesToShow: 1,
-					slidesToScroll: 1,
-					infinite: true,
-					dots: false
-				}
-			}
-			]
-		});
 
-	});
-</script>
-{% endblock %} 
