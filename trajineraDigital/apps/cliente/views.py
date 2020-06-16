@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 
 from apps.cliente.forms import SignUpForm, RegistroClienteForm, LoginForm
 from apps.cliente.models import UserCliente
-
+from apps.menu.models import Categoria, Alimento
 """def login(request):
     numbers = [1,2,3,4,5]
     name= "Max Power"
@@ -92,7 +92,9 @@ def principal(request):
 @login_required(login_url='/home/login/')
 @permission_required('cliente.es_cliente', raise_exception=True)
 def menu(request):
-    args = {'user':request.user}
+    categoria = Categoria.objects.all()
+    alimentos = Alimento.objects.all()
+    args = {'user':request.user, 'Categoria': categoria, 'Alimentos': alimentos}
     return render(request, 'cliente/menu.html', args)
 
 @login_required(login_url='/home/login/')
