@@ -322,26 +322,35 @@ class ordenes_disponibles_repartidor(LoginRequiredMixin, PermissionRequiredMixin
     model = Orden
     template_name = 'repartidor/ordenes/ordenes_disponibles.html'
 
+@login_required(login_url='/administrador/ingreso_repartidor/')
+@permission_required('usuarios.es_repartidor', raise_exception=True)
 def aceptar_orden(request,pk):
     orden = Orden.objects.get(id = pk)
     contexto = {'pedido': orden}
     return render(request,'repartidor/ordenes/orden.html', contexto)
 
+@login_required(login_url='/administrador/ingreso_repartidor/')
+@permission_required('usuarios.es_repartidor', raise_exception=True)
 def confirmar_orden_repartidor(request, pk1, pk2):
     orden = Orden.objects.get(id = pk1)
     usuario = User.objects.get(id = pk2)
     repartidor = Repartidor.objects.get(user = usuario)
     orden.repartidor_orden = repartidor
+    estado = Estado.objects.get(id = 3)
+    orden.estado_orden = estado
     orden.save()
     contexto = {'Pedido': orden, 'Repartidor': repartidor}
     return render(request,'repartidor/ordenes/orden_repartidor.html',contexto)
 
-
+@login_required(login_url='/administrador/ingreso_repartidor/')
+@permission_required('usuarios.es_repartidor', raise_exception=True)
 def orden_entregada(request, pk):
     orden = Orden.objects.get(id = pk)
     contexto = {'pedido': orden}
     return render(request,'repartidor/ordenes/orden_entregada.html',contexto)
 
+@login_required(login_url='/administrador/ingreso_repartidor/')
+@permission_required('usuarios.es_repartidor', raise_exception=True)
 def confirmar_entrega(request,pk):
     orden = Orden.objects.get(id = pk)
     estado = Estado.objects.get(id = 4)
