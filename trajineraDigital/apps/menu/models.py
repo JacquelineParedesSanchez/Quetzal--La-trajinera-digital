@@ -35,7 +35,7 @@ class Alimento(models.Model):
 
 class Orden(models.Model):
 
-	fecha_orden = models.DateField()
+	fecha_orden = models.DateTimeField()
 	estado_orden = models.ForeignKey(Estado, null=True , blank=True, on_delete=models.CASCADE)
 	orden = models.ForeignKey(UserCliente, null=True , blank=True, on_delete=models.CASCADE)
 	repartidor_orden = models.ForeignKey(Repartidor, null=True , blank=True, on_delete=models.CASCADE)

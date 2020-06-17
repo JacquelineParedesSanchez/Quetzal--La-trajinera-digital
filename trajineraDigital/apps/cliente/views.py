@@ -1,5 +1,6 @@
 
 from django.shortcuts import render, redirect
+from django.utils import timezone
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User, Permission
@@ -7,15 +8,10 @@ from django.contrib.auth.decorators import login_required, permission_required
 
 from apps.cliente.forms import SignUpForm, RegistroClienteForm, LoginForm
 from apps.cliente.models import UserCliente, Carrito
-from apps.menu.models import Categoria, Alimento
+from apps.menu.models import Categoria, Alimento, Orden
 
 from decimal import Decimal
-"""def login(request):
-    numbers = [1,2,3,4,5]
-    name= "Max Power"
 
-    args={'myname' : name, 'numbers': numbers}
-    return render(request, "cliente/home.html", args)"""
 
 def ingreso(request):
     if request.user.is_authenticated:
@@ -47,6 +43,15 @@ def ingreso(request):
 @permission_required('cliente.es_cliente', raise_exception=True)
 def salir(request):
     #if request.method == 'POST':
+        try:
+            id_carro = request.session['carro_id']
+        except:
+            id_carro = None
+
+        if id_carro:
+            carro = Carrito.objects.get(id=id_carro)
+            carro.delete()
+
         logout(request)
 
         return redirect('/home/menu/')
@@ -100,6 +105,14 @@ def menu(request):
 
 @login_required(login_url='/home/login/')
 @permission_required('cliente.es_cliente', raise_exception=True)
+def ver_menu(request,pk):
+    categoria = Categoria.objects.get(id=pk)
+    alimentos = Alimento.objects.filter(categoria = categoria)
+    contexto = {'Categoria': categoria, 'Alimentos': alimentos }
+    return render(request, 'cliente/ver_carta.html', contexto)
+
+@login_required(login_url='/home/login/')
+@permission_required('cliente.es_cliente', raise_exception=True)
 def carrito(request):
     try:
         id_carro = request.session['carro_id']
@@ -115,6 +128,8 @@ def carrito(request):
 
     return render(request, 'cliente/carrito.html', contexto)
 
+@login_required(login_url='/home/login/')
+@permission_required('cliente.es_cliente', raise_exception=True)
 def agrega_carrito(request, pk):
     try:
         id_carro = request.session['carro_id']
@@ -147,8 +162,30 @@ def agrega_carrito(request, pk):
 
 @login_required(login_url='/home/login/')
 @permission_required('cliente.es_cliente', raise_exception=True)
-def ver_menu(request,pk):
-    categoria = Categoria.objects.get(id=pk)
-    alimentos = Alimento.objects.filter(categoria = categoria)
-    contexto = {'Categoria': categoria, 'Alimentos': alimentos }
-    return render(request, 'cliente/ver_carta.html', contexto)
+def registra_orden(request):
+    try:
+        id_carro = request.session['carro_id']
+    except:
+        id_carro = None
+
+    if id_carro:
+        carro = Carrito.objects.get(id=id_carro)
+        #contexto = {'carro' : carro}
+        user_actual = request.user
+        cliente_actual = UserCliente.objects.get(user=user_actual)
+        orden = Orden(
+            fecha_orden=timezone.now(),
+            orden=cliente_actual,
+        )
+        orden.save()
+
+        for alim in carro.alimentos.all():
+            orden.alimentos_orden.add(alim)
+
+        carro.delete()
+
+    else:
+        mensaje = "Tu carro está vacío."
+        contexto = {'vacio' : True, 'mensaje' : mensaje}
+
+    return render(request, 'cliente/orden.html', {'user':request.user})
