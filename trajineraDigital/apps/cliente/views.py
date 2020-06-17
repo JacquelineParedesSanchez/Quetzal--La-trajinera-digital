@@ -47,7 +47,7 @@ def salir(request):
             id_carro = request.session['carro_id']
         except:
             id_carro = None
-
+        print(id_carro)
         if id_carro:
             carro = Carrito.objects.get(id=id_carro)
             carro.delete()
@@ -108,7 +108,22 @@ def menu(request):
 def ver_menu(request,pk):
     categoria = Categoria.objects.get(id=pk)
     alimentos = Alimento.objects.filter(categoria = categoria)
-    contexto = {'Categoria': categoria, 'Alimentos': alimentos }
+
+    try:
+        id_carro = request.session['carro_id']
+    except:
+        id_carro = None
+
+    if id_carro:
+        carro = Carrito.objects.get(id=id_carro)
+        contexto = {
+            'Categoria': categoria, 
+            'Alimentos': alimentos, 
+            'carro_alimentos' : carro.alimentos.all()
+        }
+    else:        
+        contexto = {'Categoria': categoria, 'Alimentos': alimentos }
+
     return render(request, 'cliente/ver_carta.html', contexto)
 
 @login_required(login_url='/home/login/')
@@ -140,11 +155,7 @@ def agrega_carrito(request, pk):
         id_carro = carro_nuevo.id
 
     carro = Carrito.objects.get(id=id_carro)
-
-    #try:
     alim = Alimento.objects.get(id=pk)
-    #except:
-        #pass
 
     if not alim in carro.alimentos.all():
         carro.alimentos.add(alim)
@@ -170,22 +181,69 @@ def registra_orden(request):
 
     if id_carro:
         carro = Carrito.objects.get(id=id_carro)
-        #contexto = {'carro' : carro}
         user_actual = request.user
         cliente_actual = UserCliente.objects.get(user=user_actual)
         orden = Orden(
             fecha_orden=timezone.now(),
             orden=cliente_actual,
+            precio_total=carro.total
         )
         orden.save()
 
         for alim in carro.alimentos.all():
             orden.alimentos_orden.add(alim)
+            carro.alimentos.remove(alim)
 
-        carro.delete()
-
-    else:
-        mensaje = "Tu carro está vacío."
-        contexto = {'vacio' : True, 'mensaje' : mensaje}
+        carro.total = 0.00
+        carro.save()
 
     return render(request, 'cliente/orden.html', {'user':request.user})
+
+@login_required(login_url='/home/login/')
+@permission_required('cliente.es_cliente', raise_exception=True)
+def ver_ordenes(request):
+    cliente_actual = UserCliente.objects.get(user=request.user)
+    orders = Orden.objects.filter(orden=cliente_actual)
+
+    if orders:
+        contexto = {'ordenes' : orders}
+    else:
+        mensaje = "No tienes ordenes registradas."
+        contexto = {'vacio' : True, 'mensaje' : mensaje}
+
+    return render(request, 'cliente/ordenes.html', contexto)
+
+@login_required(login_url='/home/login/')
+@permission_required('cliente.es_cliente', raise_exception=True)
+def orden_alimentos(request,pk):
+    orden = Orden.objects.get(id=pk)
+    alimentos = orden.alimentos_orden.all()
+    contexto = {'orden': alimentos}
+    return render(request, 'cliente/alimentos_orden.html', contexto)
+
+@login_required(login_url='/home/login/')
+@permission_required('cliente.es_cliente', raise_exception=True)
+def cuenta(request):
+    cliente_actual = UserCliente.objects.get(user=request.user)
+    return render(request, 'cliente/cuenta.html', {'cliente' : cliente_actual})
+
+@login_required(login_url='/home/login/')
+@permission_required('cliente.es_cliente', raise_exception=True)
+def cambiar_info(request):
+    cliente_form = RegistroClienteForm(request.POST)
+    #form = UserCreationForm(request.POST)
+    if cliente_form.is_valid():
+        #cliente = cliente_form.save(commit=False)
+        cliente = UserCliente.objects.get(user=request.user)
+        cliente.direccion = cliente_form.cleaned_data['direccion']
+        cliente.telefono = cliente_form.cleaned_data['telefono']
+
+        cliente.save()
+
+        return redirect('/home/cuenta/')
+    else:
+        return render(
+            request, 
+            'cliente/cambiar_info.html', 
+            {'cliente_form' : cliente_form}
+        )

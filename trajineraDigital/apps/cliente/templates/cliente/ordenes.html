@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+	<div class="container">
+		<h1>Ordenes</h1>
+
+		{% if user.is_authenticated%}
+	
+			{% if vacio %}
+
+				<h1>{{ mensaje }}</h1>
+
+			{% else %}
+
+				<h2>Pendientes</h2>
+
+				<div class="table">
+					<table class="table">
+						<thead>
+							<th>Orden</th>
+							<th>Fecha</th>
+							<th>Estado</th>
+							<th>Nombre</th>
+							<th>Apellido</th>
+							<th>Repartidor</th>
+							<th>Acciones</th>
+							<th>Total</th>
+						</thead>
+
+						{% for Orden in ordenes  %}
+						{% if Orden.estado_orden.id != 4  %}
+
+							<tr>
+								<td>{{ Orden.id }}</td>
+								<td>{{ Orden.fecha_orden }}</td>
+								<td>{{ Orden.estado_orden.nombre }}</td>
+								<td>{{ Orden.orden.user.first_name }}</td>
+								<td>{{ Orden.orden.user.last_name }}</td>
+								<td>{{ Orden.repartidor_orden }}</td>
+								<td><a class="btn btn-outline-info" href="/home/orden_alimentos/{{ Orden.id }}">Alimentos</a></td>
+								<td>{{ Orden.precio_total }}</td>
+							</tr>
+
+						{% endif %}
+						{% endfor %}
+
+					</table>
+				</div>				
+
+				<h2>Entregadas</h2>
+
+				<div class="table">
+					<table class="table">
+						<thead>
+							<th>Orden</th>
+							<th>Fecha</th>
+							<th>Estado</th>
+							<th>Nombre</th>
+							<th>Apellido</th>
+							<th>Repartidor</th>
+							<th>Acciones</th>
+							<th>Total</th>
+						</thead>
+
+						{% for Orden in ordenes  %}
+						{% if Orden.estado_orden.id == 4  %}
+
+							<tr>
+								<td>{{ Orden.id }}</td>
+								<td>{{ Orden.fecha_orden }}</td>
+								<td>{{ Orden.estado_orden.nombre }}</td>
+								<td>{{ Orden.orden.user.first_name }}</td>
+								<td>{{ Orden.orden.user.last_name }}</td>
+								<td>{{ Orden.repartidor_orden }}</td>
+								<td><a class="btn btn-outline-info" href="/home/orden_alimentos/{{ Orden.id }}">Alimentos</a></td>
+								<td>{{ Orden.precio_total }}</td>
+							</tr>
+						{% endif %}
+						{% endfor %}
+
+					</table>
+				</div>
+
+			{% endif %}
+
+		{% else %}
+			<h1>Registrate papu! 7u7</h1>
+		{%endif%}
+
+	</div>
+{% endblock %}

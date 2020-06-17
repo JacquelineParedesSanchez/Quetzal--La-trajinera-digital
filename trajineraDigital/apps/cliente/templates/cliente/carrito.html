@@ -27,7 +27,7 @@
 
 				{% for producto in carro.alimentos.all %}
 
-				<tr><td>{{ producto }}</td><td>{{ producto.precio }}</td><td><a href="/home/carrito/{{ producto.id }}">Quitar</a></td></tr>
+				<tr><td>{{ producto }}</td><td>{{ producto.precio }}</td><td><a class="btn btn-outline-info" href="/home/carrito/{{ producto.id }}">Quitar</a></td></tr>
 
 				{% endfor %}
 

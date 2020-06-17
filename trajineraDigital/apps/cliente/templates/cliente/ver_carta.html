@@ -26,7 +26,11 @@
 								<center><p class="card-text">{{ Alimento.descripcion  }}</p></center>
 							</div>
 							<h5>${{ Alimento.precio }}</h5><br>
-							<h5><a href="/home/carrito/{{ Alimento.id }}"><button type="button" class="btn btn-outline-info">Agregar al carrito</button></a></h5>
+							{% if Alimento in carro_alimentos %}
+								<h5><a href="/home/carrito/{{ Alimento.id }}"><button type="button" class="btn btn-outline-info">Quitar del carrito</button></a></h5>
+							{% else %}
+								<h5><a href="/home/carrito/{{ Alimento.id }}"><button type="button" class="btn btn-outline-info">Agregar al carrito</button></a></h5>
+							{% endif %}
 						</div>
 
 					</div>

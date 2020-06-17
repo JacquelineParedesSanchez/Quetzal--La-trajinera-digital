@@ -23,7 +23,7 @@ class Categoria(models.Model):
 class Alimento(models.Model):
 
 	nombre = models.CharField(max_length = 30)
-	precio = models.PositiveIntegerField()
+	precio = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
 	descripcion = models.TextField()
 	categoria = models.ForeignKey(Categoria, null=True, blank=True, on_delete=models.CASCADE)
 	foto = models.ImageField(upload_to='alimentos/images/')
@@ -40,6 +40,7 @@ class Orden(models.Model):
 	orden = models.ForeignKey(UserCliente, null=True , blank=True, on_delete=models.CASCADE)
 	repartidor_orden = models.ForeignKey(Repartidor, null=True , blank=True, on_delete=models.CASCADE)
 	alimentos_orden = models.ManyToManyField(Alimento, blank=True)
+	precio_total = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
 
 	def __str__(self):
 		return 'Orden numero: {}'.format(self.id)

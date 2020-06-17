@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<div class="container">
+		<h1>Ordenes</h1>
+
+<ul class="list-group">
+
+	<div class="table">
+			<table class="table">
+				<thead>
+					<th>Alimento</th>
+					<th>Precio $</th>
+				</thead>
+
+	{% for Alimento in orden %}
+  		<tr><td>{{ Alimento }}</td><td>{{ Alimento.precio }}</td></tr>
+	{% endfor %}
+</ul> 
+
+</div>
+
+{% endblock %}

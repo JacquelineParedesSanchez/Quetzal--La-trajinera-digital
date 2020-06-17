@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+	<div class="container">
+		<h1>Ordenes</h1>
+
+		{% if user.is_authenticated%}
+
+			<h2>Pendientes</h2>
+
+			<div class="table">
+				<table class="table">
+					<thead>
+						<th>Usuario</th>
+						<th>Nombre</th>
+						<th>Apellido</th>
+						<th>Correo</th>
+						<th>Teléfono</th>
+						<th>Dirección</th>
+						<th>Acciones</th>
+					</thead>
+
+						<tr>
+							<td>{{ cliente.user.username }}</td>
+							<td>{{ cliente.user.first_name }}</td>
+							<td>{{ cliente.user.last_name }}</td>
+							<td>{{ cliente.user.email }}</td>
+							<td>{{ cliente.telefono }}</td>
+							<td>{{ cliente.direccion }}</td>
+							<td><a class="btn btn-outline-info" href="/home/cambiar_info">Cambiar Tel/Dir</a></td>
+						</tr>
+				</table>
+			</div>		
+
+		{% else %}
+			<h1>Registrate papu! 7u7</h1>
+		{%endif%}
+
+	</div>
+{% endblock %}
