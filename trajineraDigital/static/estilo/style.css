@@ -107,7 +107,24 @@
 	color: white;
 }
 
+h5  {
+	color: white;
+}
 
+
+
+#footerq {
+	margin-top: 300px;
+		/*height:323px;*/
+	width:100%;
+	background-color: black;
+	font-size: 15pt;
+	color:white;
+}
+
+#footerq a {
+	color: white;
+}
 
 
 
