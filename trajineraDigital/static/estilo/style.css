@@ -17,7 +17,7 @@
 
 
 #footer_trajinera {
-	margin-top: 210px;
+	margin-top: 230px;
 		/*height:323px;*/
 	width:100%;
 	background-color: black;
@@ -74,9 +74,9 @@
 }
 
 #Alimentos .bkgndAlimento div{
-	color: red;
+	color: black ;
 	font-weight: bold;
-	font-size: 20px;
+	font-size: 15px;
 	text-align: center;
 	display: table-cell;
 	vertical-align: middle;
@@ -107,7 +107,7 @@
 	color: white;
 }
 
-h5  {
+#footerq h5 {
 	color: white;
 }
 
