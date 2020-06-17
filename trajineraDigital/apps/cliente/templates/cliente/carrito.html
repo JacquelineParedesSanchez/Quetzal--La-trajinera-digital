@@ -15,6 +15,10 @@
       <td>Total: </td>
     </tr>
   </tfoot>
+  {% for orden in orden  %}
+  <tr>
+    <td>{{ orden.alimento }}</td> <td>{{ orden.cantidad }} </td>
+  </tr>
 
 </table>
 

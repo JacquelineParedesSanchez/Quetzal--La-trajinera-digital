@@ -57,7 +57,7 @@ def menu(request):
 
 @login_required
 def carrito(request):
-    args={'alimentos': Alimento.objects.all()}
+    args={'orden': Orden.objects.all()}
     return render(request, "cliente/carrito.html", args)
 @login_required
 def agregar_carrito(request, nombre):
