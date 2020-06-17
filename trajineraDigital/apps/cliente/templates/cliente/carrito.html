@@ -9,6 +9,7 @@
   <thead>
     <th>Alimento</th>
     <th>Precio</th>
+    <th>Cantidad</th>
   </thead>
   <tfoot>
     <tr>
@@ -17,7 +18,7 @@
   </tfoot>
   {% for orden in orden  %}
   <tr>
-    <td>{{ orden.alimento }}</td> <td>{{ orden.cantidad }} </td>
+    <td>{{ orden.alimento.nombre }}</td>  <td>{{orden.alimento.precio}} </td> <td>{{ orden.cantidad }} </td>
   </tr>
 
 </table>
