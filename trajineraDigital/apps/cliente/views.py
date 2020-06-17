@@ -102,7 +102,8 @@ def carrito(request):
     args = {'user':request.user}
     return render(request, 'cliente/carrito.html', args)
 
-
+@login_required(login_url='/home/login/')
+@permission_required('cliente.es_cliente', raise_exception=True)
 def ver_menu(request,pk):
     categoria = Categoria.objects.get(id  = pk)
     alimentos = Alimento.objects.filter(categoria = categoria)

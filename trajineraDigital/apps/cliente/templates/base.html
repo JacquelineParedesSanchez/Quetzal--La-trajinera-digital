@@ -26,7 +26,7 @@
 
   {% if user.is_authenticated%}
   <nav id="navbar-trajinera" class="navbar navbar-dark bg-info"><img style="width: 50px; height: 50px;" src="{% static 'image/logo.jpg' %}">
-    <a class="navbar-brand" href="#">La Trajinera Dijital</a>
+    <a class="navbar-brand" href="/home/menu">La Trajinera Digital</a>
     <ul class="nav nav-pills">
       <li class="nav-item">
         <a class="nav-link" href="/home/menu">Ver menú</a>
@@ -41,7 +41,7 @@
   </nav>
   {% else %}
   <nav id="navbar-trajinera" class="navbar navbar-dark bg-info">
-    <a class="navbar-brand" href="#">La Trajinera Dijital</a>
+    <a class="navbar-brand" href="/home/menu">La Trajinera Digital</a>
     <ul class="nav nav-pills">
       <li class="nav-item">
         <a class="nav-link" href="/home/registro">Registrarse</a>
