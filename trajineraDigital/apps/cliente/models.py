@@ -5,8 +5,8 @@ from django.db.models.signals import post_save
 
 from django.dispatch import receiver
 
-#from apps.menu.models import Orden
-# Create your models here.
+from apps import menu as menu
+
 class UserCliente(models.Model):
 
 	user = models.OneToOneField(
@@ -32,6 +32,21 @@ class UserCliente(models.Model):
 	def __repr__(self):
 		return self.__str__()
 
+
+class Carrito(models.Model):
+	#cliente = models.ForeignKey(User, null=True, blank=True)
+	alimentos = models.ManyToManyField('menu.Alimento', blank=True)
+	total = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+
+	def __str__(self):
+		return "Carrito: {}".format(
+			self.id,
+			#self.cliente.username,
+			#self.cliente.email
+		)
+
+	def __repr__(self):
+		return self.__str__()
 
 """def create_profile(sender,**kwargs):
 	if kwargs['created']:

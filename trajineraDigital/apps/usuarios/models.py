@@ -2,33 +2,6 @@ from django.db import models
 from django.core.validators import RegexValidator
 from django.contrib.auth.models import User, AbstractUser
 
-# Create your models here.
-"""class Repartidor(models.Model):
-
-	nombre = models.CharField(max_length = 20) 
-	apellidos = models.CharField(max_length = 50)
-	correo = models.EmailField()
-	contrasena = models.CharField(max_length = 8)
-	
-	def __str__(self):
-		return '{} {}'.format(self.nombre, self.apellidos)"""
-
-"""class Administrador(models.Model):
-
-	nombre_usuario = models.CharField(max_length = 20) 
-	correo = models.EmailField(null=True)
-	contrasena = models.CharField(max_length = 8)
-
-	def __str__(self):
-		return '{}'.format(self.nombre_usuario)"""
-
-"""class User(AbstractUser):
-	es_cliente = models.BooleanField(default=False)
-	es_repartidor = models.BooleanField(default=False)
-	es_administrador = models.BooleanField(default=False)"""
-	
-		
-
 
 class Repartidor(models.Model):
 
@@ -39,7 +12,6 @@ class Repartidor(models.Model):
 	telefono = models.CharField(validators=[tel], max_length=10, blank=True, null=True)
 	
 	class Meta:
-		#proxy = True
 		permissions = [('es_repartidor', "Acceso_Repartidor")]
 
 	def __str__(self):
@@ -54,7 +26,6 @@ class Administrador(models.Model):
 	)
 
 	class Meta:
-		#proxy = True
 		permissions = [('es_administrador', "Acceso_Administrador")]
 
 	def __str__(self):

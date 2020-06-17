@@ -6,8 +6,10 @@ from django.contrib.auth.models import User, Permission
 from django.contrib.auth.decorators import login_required, permission_required
 
 from apps.cliente.forms import SignUpForm, RegistroClienteForm, LoginForm
-from apps.cliente.models import UserCliente
+from apps.cliente.models import UserCliente, Carrito
 from apps.menu.models import Categoria, Alimento
+
+from decimal import Decimal
 """def login(request):
     numbers = [1,2,3,4,5]
     name= "Max Power"
@@ -99,13 +101,54 @@ def menu(request):
 @login_required(login_url='/home/login/')
 @permission_required('cliente.es_cliente', raise_exception=True)
 def carrito(request):
-    args = {'user':request.user}
-    return render(request, 'cliente/carrito.html', args)
+    try:
+        id_carro = request.session['carro_id']
+    except:
+        id_carro = None
+
+    if id_carro:
+        carro = Carrito.objects.get(id=id_carro)
+        contexto = {'carro' : carro}
+    else:
+        mensaje = "Tu carro está vacío."
+        contexto = {'vacio' : True, 'mensaje' : mensaje}
+
+    return render(request, 'cliente/carrito.html', contexto)
+
+def agrega_carrito(request, pk):
+    try:
+        id_carro = request.session['carro_id']
+    except:
+        carro_nuevo = Carrito()
+        carro_nuevo.save()
+        request.session['carro_id'] = carro_nuevo.id
+        id_carro = carro_nuevo.id
+
+    carro = Carrito.objects.get(id=id_carro)
+
+    #try:
+    alim = Alimento.objects.get(id=pk)
+    #except:
+        #pass
+
+    if not alim in carro.alimentos.all():
+        carro.alimentos.add(alim)
+    else:
+        carro.alimentos.remove(alim)
+
+    temp_total = Decimal(0.00)
+    for producto in carro.alimentos.all():
+        temp_total += producto.precio
+
+    carro.total = temp_total
+    carro.save()
+
+    return redirect('/home/carrito/')
 
 @login_required(login_url='/home/login/')
 @permission_required('cliente.es_cliente', raise_exception=True)
 def ver_menu(request,pk):
-    categoria = Categoria.objects.get(id  = pk)
+    categoria = Categoria.objects.get(id=pk)
     alimentos = Alimento.objects.filter(categoria = categoria)
     contexto = {'Categoria': categoria, 'Alimentos': alimentos }
     return render(request, 'cliente/ver_carta.html', contexto)

@@ -3,7 +3,42 @@
 {% block body %}
 <div class="container">
 <h1>Carrito</h1>
-<p>Esta es tu orden</p>
+
+{% if user.is_authenticated%}
+	
+	{% if vacio %}
+
+		<h1>{{ mensaje }}</h1>
+
+	{% else %}
+
+		<div class="table">
+			<table class="table">
+				<thead>
+					<th>Alimento</th>
+					<th>Precio $</th>
+				</thead>
+				<tfoot>
+					<tr>
+						<td></td>
+						<td>Total: {{ carro.total }}
+					</tr>
+				</tfoot>
+
+				{% for producto in carro.alimentos.all %}
+
+				<tr><td>{{ producto }}</td><td>{{ producto.precio }}</td><td><a href="/home/carrito/{{ producto.id }}">Quitar</a></td></tr>
+
+				{% endfor %}
+
+			</table>
+		</div>
+
+	{% endif %}
+
+{% else %}
+	<p>Registrate papu! 7u7</p>
+{%endif%}
 
 
 
