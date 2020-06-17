@@ -189,7 +189,7 @@ def Registro_Repartidor(request):
         tel = TelefonoForm(request.POST)
         if repartidor.is_valid() and tel.is_valid():
             subject = 'Bienvenido a la Trajinera Digital!'
-            message = 'El equipo Quetzal te da la Bienvenida tu contraseña es ' + str(repartidor.cleaned_data['password1']) + ' Accede con tu correo electronico'
+            message = 'El equipo Quetzal te da la Bienvenida tu contraseña es ' + str(repartidor.cleaned_data['password1']) + ' Accede con tu usuario: ' + str(repartidor.cleaned_data['username'])
             recepient = str(repartidor.cleaned_data['email'])
             send_mail(subject, message, EMAIL_HOST_USER, [recepient], fail_silently = False)
             user = repartidor.save()
