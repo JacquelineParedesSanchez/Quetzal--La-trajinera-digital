@@ -181,6 +181,13 @@ def registra_orden(request):
 
     if id_carro:
         carro = Carrito.objects.get(id=id_carro)
+
+        if carro.alimentos.all().count() == 0:
+            mensaje = "Tu carro está vacío."
+            contexto = {'vacio' : True, 'mensaje' : mensaje}
+
+            return render(request, 'cliente/carrito.html', contexto)
+
         user_actual = request.user
         cliente_actual = UserCliente.objects.get(user=user_actual)
         orden = Orden(

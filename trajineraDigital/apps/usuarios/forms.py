@@ -112,12 +112,17 @@ class CategoriaForm(forms.ModelForm):
 		model = Categoria
 		fields = [
 			'nombre',
+			'descripcion',
+			'foto',
 		]
 		labels = {
 			'nombre': 'Nombre',
+			'descripcion': 'Descripcion',
+			'foto': 'Foto',
 		}
 		widgets = {
 			'nombre': forms.TextInput(attrs = {'class': 'form-control'}),
+			'descripcion': forms.TextInput(attrs = {'class': 'form-control'}),
 		}
 
 

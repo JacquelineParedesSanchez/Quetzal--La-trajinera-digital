@@ -3,10 +3,12 @@
 {% block title %} Repartidor {% endblock %}
 
 {% block content %}
+<div class="cont-top">
 <form method= 'post'>
 	{% csrf_token  %}
 	{{ form.as_p }}
 	{{ tel.as_p }}
 	<button type="submit">Guardar</button>
 </form>
+</div>
 {% endblock %}

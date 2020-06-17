@@ -1,4 +1,4 @@
-{% extends 'admin/alimento/alimento.html' %} 
+{% extends 'repartidor/index_repartidor.html' %} 
 
 {% block title %} Ordenes Pendientes {% endblock %}
 
@@ -22,7 +22,9 @@
 						<td>Fecha</td>
 						<td>Cliente</td>
 						<td>Direccion</td>
+						<td>Telefono</td>
 						<td>Estado</td>
+						<td>Precio</td>
 						<td>Acciones</td>
 					</tr>
 				</thead>
@@ -36,7 +38,9 @@
 						<td>{{ Orden.fecha_orden }}</td>
 						<td>{{ Orden.orden.user.first_name }}</td>
 						<td>{{ Orden.orden.direccion }}</td>
+						<td>{{ Orden.orden.telefono }}</td>
 						<td>{{ Orden.estado_orden.nombre }}</td>
+						<td>{{ Orden.precio_total }}</td>
 						<td><a  class="btn btn-primary" href="{% url 'orden_entregada' Orden.id %}">Entregado</a></td>
 					</tr>
 					{% endif %}

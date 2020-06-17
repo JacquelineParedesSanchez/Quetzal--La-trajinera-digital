@@ -15,6 +15,8 @@
   <link rel="stylesheet"  type="text/css" href="{% static 'estilo/style.css' %}">
   <link rel="stylesheet"  type="text/css" href="{% static 'estilo/bootstrap.min.css' %}">
   <link rel="stylesheet"  type="text/css" href="{% static 'estilo/slick.css' %}">
+
+  <link href="{% static 'image/icono.jpeg' %}" rel='shortcut icon' type='image/png'/>
   
   {% block head %}
   <title>Base</title>
@@ -59,6 +61,92 @@
   {% block body %}
   <h1>base</h1>
   {% endblock %}
+
+  <!-- Footer -->
+<footer class="page-footer font-small navbar-dark bg-info pt-4" id="footerq">
+
+  <!-- Footer Links -->
+  <div class="container-fluid text-center text-md-left">
+
+    <!-- Grid row -->
+    <div class="row">
+
+      <!-- Grid column -->
+      <div class="col-md-6 mt-md-0 mt-3" style="color: white;">
+
+        <!-- Content -->
+        <h5 class="text-uppercase">La Trajinera Digital</h5>
+        <p > Este es un producto desarrollado por Quetzal </p>
+        <img src="{% static 'image/icono.jpeg' %}" style="width: 100px; height: 100px;">uetzal
+        
+
+      </div>
+      <!-- Grid column -->
+
+      <hr class="clearfix w-100 d-md-none pb-3">
+
+      <!-- Grid column -->
+      <div class="col-md-3 mb-md-0 mb-3">
+
+        <!-- Links -->
+          <h5>Ingenieria de Software 2020-2</h5>
+
+          <ul class="list-unstyled">
+            <li>
+              <a href="https://sites.google.com/ciencias.unam.mx/ingenieriadesoftware-2020-2/p%C3%A1gina-principal" target="_blank">Pagina del Curso</a>
+            </li>
+            <li>
+              <a href="https://github.com/JacquelineParedes/Quetzal--La-trajinera-digital" target="_blank">Repositorio</a>
+            </li>
+            <li>
+              <a href="http://www.fciencias.unam.mx/" target="_blank">Facultad de Ciencias</a>
+            </li>
+            
+          </ul>
+
+      </div>
+      <!-- Grid column -->
+
+     <div class="col-md-3 mb-md-0 mb-3">
+
+          <!-- Links -->
+          <h5>Colaboradores</h5>
+
+          <ul class="list-unstyled">
+            <li>
+              <a href="mailto:jfaltamiranov@ciencias.unam.mx"><h6>Jesús Fernando Altamirano Vázquez</h6></a>
+            </li>
+            <li>
+              <a href="mailto:jacqueline.pa@ciencias.unam.mx"><h6>Jacqueline Paredes Sánchez</h6></a>
+            </li>
+            <li>
+              <a href=""><h6></h6></a>
+            </li>
+            <li>
+              <a href="mailto:miguelescamilla@ciencias.unam.mx"><h6>Miguel Ángel Escamilla Monroy</h6></a>
+            </li>
+            <li>
+              <a href="mailto:damf@ciencias.unam.mx"><h6>David A. Martinez Figueroa</h6></a>
+            </li>
+          </ul>
+
+        </div>
+        <!-- Grid column -->
+
+    </div>
+    <!-- Grid row -->
+
+  </div>
+  <!-- Footer Links -->
+
+  <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">Contacto al desarollador:
+      <a href="mailto:quetzalig.2020.2@gmail.com">quetzalig.2020.2@gmail.com</a>
+    </div>
+    <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
 
   
 {% block extra_js %} {% endblock %}

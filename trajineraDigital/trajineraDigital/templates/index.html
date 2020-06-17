@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+
+	<meta charset="utf-8">
+	
+	<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+	<script src="{% static 'js/popper.js' %}"></script>
+	<script src="{% static 'js/bootstrap.min.js' %}"></script> 
+	<script src="{% static 'js/slick.min.js' %}"></script> 
+	<script src="{% static 'js/script.js' %}"></script> 
+	
+	<link rel="stylesheet"  type="text/css" href="{% static 'estilo/style.css' %}">
+	<link rel="stylesheet"  type="text/css" href="{% static 'estilo/bootstrap.min.css' %}">
+	<link rel="stylesheet"  type="text/css" href="{% static 'estilo/slick.css' %}">
+
+	<link href="{% static 'image/icono.jpeg' %}" rel='shortcut icon' type='image/png'/>
+	<title>Bienvenido</title>
+</head>
+<body background="{% static 'image/fondo.jpeg' %}" style="background-size: cover ; background-repeat: no-repeat; ">
+	
+
+	<center style="color: white;"><h1>La Trajinera Digital</h1></center><br><br><br>
+
+	<center ><a href="home/login"><h2 style="color: white;"> Acceder como Cliente</h2></a></center><br>
+
+	<center ><a href="administrador/ingreso_repartidor"><h2 style="color: white;"> Acceder como Repartidor</h2></a></center><br>
+
+	<center ><a href="administrador/ingreso"><h2 style="color: white;"> Acceder como Administrador</h2></a></center><br>
+
+
+
+
+</body>
+</html>
+
