@@ -28,6 +28,7 @@
 						<td>Fecha</td>
 						<td>Cliente</td>
 						<td>Repartidor</td>
+						<td>Total</td>
 						<td>Acciones</td>
 					</tr>
 				</thead>
@@ -41,6 +42,7 @@
 						<td>{{ Orden.fecha_orden }}</td>
 						<td>{{ Orden.orden }}</td>
 						<td>{{ Orden.repartidor_orden }}</td>
+						<td>{{ Orden.precio_total }}</td>
 						<td><a  class="btn btn-primary" href="{% url 'orden_alimentos' Orden.id %}">Alimentos</a></td>
 					</tr>
 					{% endif %}
